@@ -9,7 +9,7 @@ interface Props {
     }[];
 }
 
-const Experties = ({ expertise }: Props) => {
+const Expertise = ({ expertise }: Props) => {
     return (
         <motion.div
             initial={{ opacity: 0, x: 50 }}
@@ -49,4 +49,4 @@ const Experties = ({ expertise }: Props) => {
     );
 };
 
-export default Experties;
+export default Expertise;

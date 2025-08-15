@@ -9,7 +9,7 @@ interface Props {
     }[];
 }
 
-const Showable = ({ stats }: Props) => {
+const ShowAble = ({ stats }: Props) => {
     return (
         <motion.div
             className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
@@ -46,4 +46,4 @@ const Showable = ({ stats }: Props) => {
     );
 };
 
-export default Showable;
+export default ShowAble;

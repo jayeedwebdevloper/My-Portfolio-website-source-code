@@ -1,9 +1,9 @@
 "use client";
 import { LuAward, LuBrain, LuClock, LuRocket, LuTarget, LuUsers, LuZap } from "react-icons/lu";
 import { motion } from "motion/react";
-import Showable from "./Showable";
 import Features from "./Features";
-import Experties from "./Experties";
+import ShowAble from "./Showable";
+import Expertise from "./Experties";
 
 const HomeAbout = () => {
     const stats = [
@@ -95,10 +95,10 @@ const HomeAbout = () => {
                     </p>
                 </motion.div>
 
-                <Showable stats={stats} />
+                <ShowAble stats={stats} />
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <Features features={features} />
-                    <Experties expertise={expertise} />
+                    <Expertise expertise={expertise} />
                 </div>
             </div>
         </div>
