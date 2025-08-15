@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 
 interface Props {
     stats: {
-        icon: React.ComponentType;
+        icon: React.ComponentType<{ className?: string }>;
         label: string;
         value: string;
         color: string;
@@ -19,7 +19,7 @@ const ShowAble = ({ stats }: Props) => {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
             >
-                {stats.map((stat: any, index: number) => (
+                {stats.map((stat, index) => (
                     <motion.div
                         key={index}
                         whileHover={{ scale: 1.05, y: -5 }}
