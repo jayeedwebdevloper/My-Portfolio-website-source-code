@@ -22,8 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${openSans.variable}`}>
+      <head>
+        <meta name="apple-mobile-web-app-title" content="Jayeed" />
+      </head>
       <body
-        className={`font-sans scroll-smooth bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 antialiased w-full min-h-screen`}
+        className={`font-sans scroll-smooth bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 antialiased w-full min-h-screen relative`}
       >
         <Header />
         {children}

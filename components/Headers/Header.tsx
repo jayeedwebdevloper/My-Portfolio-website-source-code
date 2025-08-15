@@ -47,7 +47,7 @@ const Header = () => {
             animate={{ y: 0 }}
             transition={{ duration: 0.8 }}
         >
-            <nav className="container mx-auto px-6 py-4">
+            <nav className="container mx-auto px-5 lg:px-6 py-4">
                 <div className="flex items-center justify-between">
                     <Link href="/" className="cursor-pointer">
                         <motion.div
