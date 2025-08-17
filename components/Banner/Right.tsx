@@ -88,39 +88,6 @@ const Right = ({ technologies }: RightProps) => {
                         {/* Abstract developer representation */}
                         < div className="absolute top-4 left-5 right-3 bottom-0 flex flex-col items-center justify-end" >
                             <Image width={530} height={710} src="/images/jayeed-developer.webp" alt="developer, app, mobile, web, react, jayeed" />
-                            {/* Head */}
-                            {/* < motion.div
-                                className="w-20 h-20 bg-gradient-to-br from-white/20 to-blue-400/30 rounded-full mb-4 backdrop-blur-sm border border-white/30 flex items-center justify-center"
-                                animate={{
-                                    boxShadow: [
-                                        "0 0 0 0 rgba(59, 130, 246, 0.4)",
-                                        "0 0 0 20px rgba(59, 130, 246, 0)",
-                                        "0 0 0 0 rgba(59, 130, 246, 0)"
-                                    ]
-                                }}
-                                transition={{ duration: 3, repeat: Infinity }}
-                            >
-                            
-                            </motion.div > */}
-
-                            {/* Body representation with code elements */}
-                            {/* < div className="w-16 h-32 bg-gradient-to-b from-white/15 to-purple-400/25 rounded-2xl backdrop-blur-sm border border-white/20 flex flex-col items-center justify-center space-y-2" >
-                                <motion.div
-                                    className="w-8 h-1 bg-green-400/60 rounded-full"
-                                    animate={{ opacity: [0.6, 1, 0.6] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
-                                />
-                                <motion.div
-                                    className="w-10 h-1 bg-blue-400/60 rounded-full"
-                                    animate={{ opacity: [0.6, 1, 0.6] }}
-                                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                                />
-                                <motion.div
-                                    className="w-6 h-1 bg-purple-400/60 rounded-full"
-                                    animate={{ opacity: [0.6, 1, 0.6] }}
-                                    transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                                />
-                            </div > */}
                         </div >
 
                         {/* Floating code snippets */}
