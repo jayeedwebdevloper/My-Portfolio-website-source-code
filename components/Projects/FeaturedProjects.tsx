@@ -1,0 +1,238 @@
+"use client";
+import { motion } from "motion/react";
+import Image from "next/image";
+import { FaArrowRight } from "react-icons/fa6";
+import { LuBrain, LuExternalLink, LuGithub, LuSparkles, LuZap } from "react-icons/lu";
+
+const FeaturedProjects = () => {
+    const projects = [
+        {
+            title: "AI-Powered E-Commerce Platform",
+            description: "Intelligent e-commerce solution with React, Node.js, and OpenAI integration. Features include AI product recommendations, smart search, and automated",
+            image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+            technologies: ["React", "Node.js", "OpenAI", "Firebase"],
+            category: "AI Web Development",
+            status: "Completed",
+            aiFeatures: ["Smart", "Automated Support", "Intelligent Search"]
+        },
+        {
+            title: "Neural Chat Mobile App",
+            description: "Advanced messaging application with OpenAI GPT integration for smart replies, content generation, and real-time translation capabilities.",
+            image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
+            technologies: ["React Native", "OpenAI", "WebSocket", "Firebase"],
+            category: "AI Mobile Development",
+            status: "In Progress",
+            aiFeatures: ["Smart Replies", "Content Generation", "Real-time Translation"]
+        },
+        {
+            title: "Intelligent Analytics Dashboard",
+            description: "AI-driven business intelligence platform with predictive analytics, automated insights, and natural language querying capabilities.",
+            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+            technologies: ["TypeScript", "React", "OpenAI", "Express.js"],
+            category: "AI Web Development",
+            status: "Completed",
+            aiFeatures: ["Predictive Analytics", "Auto Insights", "NL Querying"]
+        }
+    ]
+
+    return (
+        <div className="py-24 container mx-auto px-5 lg:px-6">
+            {/* titles */}
+            <motion.div
+                className="text-center mb-20"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+            >
+                <div
+                    className="bg-white/5 backdrop-blur-xl border border-white/20 mb-6 px-6 py-2 flex justify-center items-center w-[190px] mx-auto rounded-full text-white shadow-lg"
+                >
+                    <LuSparkles className="w-4 h-4 mr-2 text-cyan-400" />
+                    <p>My Portfolio</p>
+                </div>
+                <h2 className="text-5xl lg:text-6xl pb-8 bg-gradient-to-r from-white via-blue-200 to-purple-300 bg-clip-text text-transparent">
+                    Featured Projects
+                </h2>
+                <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                    Explore our portfolio of cutting-edge projects featuring OpenAI integration, intelligent Web & Mobile app, and next-generation solutions.
+                </p>
+            </motion.div>
+
+            <div className="grid gap-4 grid-cols-1 lg:grid-cols-3">
+                {projects.map((project, index) => (
+                    <div key={index} className="px-4">
+                        <motion.div
+                            className="h-full"
+                            whileHover={{ y: -10 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                        >
+                            <div className="bg-white/5 backdrop-blur-2xl border border-white/20 overflow-hidden hover:bg-white/8 transition-all duration-500 group h-full rounded-3xl shadow-2xl shadow-black/20">
+                                <div className="relative overflow-hidden">
+                                    <Image
+                                        width={1000}
+                                        height={600}
+                                        src={project.image}
+                                        alt={project.title}
+                                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    <div className="absolute top-4 left-4">
+                                        <div
+                                            className={`${project.status === 'Completed'
+                                                ? 'bg-green-500/90 text-white border-green-400/50'
+                                                : 'bg-yellow-500/90 text-white border-yellow-400/50'
+                                                } backdrop-blur-sm rounded-full px-2`}
+                                        >
+                                            {project.status}
+                                        </div>
+                                    </div>
+                                    <div className="absolute top-4 right-4">
+                                        <motion.div
+                                            animate={{ rotate: [0, 360] }}
+                                            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                                        >
+                                            <LuBrain className="w-6 h-6 text-purple-400" />
+                                        </motion.div>
+                                    </div>
+                                    {/* Very subtle animated overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                </div>
+
+                                <div className="p-6 relative z-10 flex flex-col">
+                                    <div className="mb-4">
+                                        <p
+                                            className="bg-white/10 backdrop-blur-sm border-purple-400/30 text-purple-300 text-xs mb-3 rounded-full px-2 py-1 w-fit"
+                                        >
+                                            {project.category}
+                                        </p>
+                                    </div>
+
+                                    <h3 className="text-xl text-white group-hover:text-gray-100 mb-3 transition-all duration-300">
+                                        {project.title}
+                                    </h3>
+
+                                    <p className="text-gray-400 group-hover:text-gray-300 mb-4 text-sm leading-relaxed transition-colors duration-300">
+                                        {project.description}
+                                    </p>
+
+                                    {/* AI Features */}
+                                    <div className="mb-4">
+                                        <h4 className="text-xs text-gray-500 group-hover:text-gray-400 mb-2 uppercase tracking-wider flex items-center transition-colors duration-300">
+                                            <LuZap className="w-3 h-3 mr-1" />
+                                            Features
+                                        </h4>
+                                        <div className="flex flex-wrap gap-1">
+                                            {project.aiFeatures.map((feature, featureIndex) => (
+                                                <motion.div
+                                                    key={featureIndex}
+                                                    initial={{ opacity: 0, scale: 0.8 }}
+                                                    whileInView={{ opacity: 1, scale: 1 }}
+                                                    transition={{ delay: featureIndex * 0.1 }}
+                                                    viewport={{ once: true }}
+                                                >
+                                                    <p
+                                                        className="bg-purple-500/20 text-purple-300 border-purple-400/30 text-xs rounded-full hover:scale-105 transition-transform hover:text-purple-200 px-2 py-1"
+                                                    >
+                                                        {feature}
+                                                    </p>
+                                                </motion.div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Technologies */}
+                                    <div className="flex flex-wrap gap-2 mb-6">
+                                        {project.technologies.map((tech, techIndex) => (
+                                            <motion.div
+                                                key={tech}
+                                                initial={{ opacity: 0, y: 10 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                transition={{ delay: techIndex * 0.1 }}
+                                                viewport={{ once: true }}
+                                            >
+                                                <p
+                                                    className="bg-white/10 backdrop-blur-sm border border-white/20 text-xs hover:bg-white/15 transition-colors duration-200 rounded-full hover:scale-105 text-gray-300 hover:text-white px-2 py-1"
+                                                >
+                                                    {tech}
+                                                </p>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+
+                                    <div className="flex justify-between items-center">
+                                        <button
+                                            className="hover:bg-white/10 transition-all duration-200 p-0 text-cyan-400 hover:text-cyan-300 rounded-full px-4 py-2 flex items-center cursor-pointer"
+                                        >
+                                            <LuExternalLink className="w-4 h-4 mr-2" />
+                                            Live Demo
+                                        </button>
+                                        <button
+                                            className="hover:bg-white/10 transition-all duration-200 p-0 text-gray-400 hover:text-gray-300 rounded-full px-4 py-2 flex items-center cursor-pointer"
+                                        >
+                                            <LuGithub className="w-4 h-4 mr-2" />
+                                            Code
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                ))}
+            </div>
+
+            <motion.div
+                className="text-center"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+            >
+                <div className="bg-gradient-to-br from-purple-500/10 via-blue-600/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 p-12 max-w-4xl mx-auto relative overflow-hidden rounded-3xl mt-16">
+                    {/* Animated background pattern */}
+                    <div className="absolute inset-0 opacity-20">
+                        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-3xl"></div>
+                    </div>
+
+                    <motion.div
+                        initial={{ scale: 0.9 }}
+                        whileInView={{ scale: 1 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                    >
+                        <motion.div
+                            animate={{ rotate: [0, 360] }}
+                            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                        >
+                            <LuSparkles className="w-16 h-16 mx-auto mb-6 text-cyan-400" />
+                        </motion.div>
+                        <h3 className="text-3xl lg:text-4xl text-white pb-6">Discover More Projects</h3>
+                        <p className="text-gray-300 pb-8 text-lg max-w-2xl mx-auto">
+                            Explore our complete portfolio of Full-stack applications, Web and Mobile solutions,
+                            and cutting-edge development projects that push the boundaries of technology.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button
+                                onClick={() => alert("AI Projects Coming Soon!")}
+                                className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white border-0 shadow-lg shadow-purple-500/25 rounded-full z-10 flex items-center justify-center px-4 py-2 cursor-pointer"
+                            >
+                                <LuBrain className="w-5 h-5 mr-2" />
+                                View All Projects
+                                <FaArrowRight className="w-4 h-4 ml-2" />
+                            </button>
+                            <button
+                                className="bg-white/5 backdrop-blur-xl border-white/20 hover:bg-white/10 text-white rounded-full flex items-center justify-center px-4 py-2 cursor-pointer"
+                            >
+                                <LuGithub className="w-5 h-5 mr-2" />
+                                GitHub Repository
+                                <FaArrowRight className="w-4 h-4 ml-2" />
+                            </button>
+                        </div>
+                    </motion.div>
+                </div>
+            </motion.div>
+        </div>
+    );
+};
+
+export default FeaturedProjects;

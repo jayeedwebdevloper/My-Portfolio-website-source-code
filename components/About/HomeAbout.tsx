@@ -81,7 +81,7 @@ const HomeAbout = () => {
                     viewport={{ once: true }}
                 >
                     <div
-                        className="bg-white/5 backdrop-blur-xl border border-white/20 mb-6 px-6 py-2 flex items-center justify-center rounded-full text-sm text-white w-[270px] mx-auto"
+                        className="bg-white/5 backdrop-blur-xl border border-white/20 mb-6 px-6 py-2 flex items-center justify-center rounded-full text-sm text-white w-[290px] mx-auto"
                     >
                         <LuBrain className="w-4 h-4 mr-2 text-purple-400" />
                         <p>About Our Full Stack Approach</p>
