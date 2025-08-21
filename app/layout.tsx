@@ -28,7 +28,9 @@ export default function RootLayout({
       <body
         className={`font-open-sans scroll-smooth bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 antialiased w-full min-h-screen relative text-white`}
       >
-        <Layout children={children} />
+        <Layout>
+          {children}
+        </Layout>
       </body>
     </html>
   );
