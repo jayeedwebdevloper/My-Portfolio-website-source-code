@@ -2,22 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { getBucket } from "@/lib/gridfs";
 import { verifyAdmin } from "@/lib/auth";
 
-type Context = {
-    params: { id: string };
-};
-
 export async function GET(
-    { params }: Context
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const bucket = await getBucket();
-        const id = decodeURIComponent(params.id);
-
+        const { id } = await params;
+        const decodedId = decodeURIComponent(id);
         // Find file by filename (_id)
-        const files = await bucket.find({ filename: id }).toArray();
+        const files = await bucket.find({ filename: decodedId }).toArray();
         if (!files.length) throw new Error("Not found");
 
-        const downloadStream = bucket.openDownloadStreamByName(id);
+        const downloadStream = bucket.openDownloadStreamByName(decodedId);
 
         return new NextResponse(downloadStream as any, {
             headers: {
@@ -32,7 +28,7 @@ export async function GET(
 
 export async function DELETE(
     req: NextRequest,
-    { params }: Context
+    { params }: { params: Promise<{ id: string }> }
 ) {
     if (!verifyAdmin(req)) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -40,9 +36,10 @@ export async function DELETE(
 
     try {
         const bucket = await getBucket();
-        const id = decodeURIComponent(params.id);
+        const { id } = await params;
+        const decodedId = decodeURIComponent(id);
 
-        const files = await bucket.find({ filename: id }).toArray();
+        const files = await bucket.find({ filename: decodedId }).toArray();
         if (!files.length) throw new Error("File not found");
 
         await bucket.delete(files[0]._id); // delete by ObjectId
