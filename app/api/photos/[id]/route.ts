@@ -2,9 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { getBucket } from "@/lib/gridfs";
 import { verifyAdmin } from "@/lib/auth";
 
+type Context = {
+    params: { id: string };
+};
+
 export async function GET(
-    req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: Context
 ) {
     try {
         const bucket = await getBucket();
@@ -29,7 +32,7 @@ export async function GET(
 
 export async function DELETE(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: Context
 ) {
     if (!verifyAdmin(req)) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
