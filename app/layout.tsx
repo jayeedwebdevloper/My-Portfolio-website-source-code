@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import Layout from "@/components/Layout/Layout";
+import Context from "@/Context/Context";
 
 const openSans = Open_Sans({
   subsets: ['latin'],
@@ -28,9 +29,11 @@ export default function RootLayout({
       <body
         className={`font-open-sans scroll-smooth bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 antialiased w-full min-h-screen relative text-white`}
       >
-        <Layout>
-          {children}
-        </Layout>
+        <Context>
+          <Layout>
+            {children}
+          </Layout>
+        </Context>
       </body>
     </html>
   );
