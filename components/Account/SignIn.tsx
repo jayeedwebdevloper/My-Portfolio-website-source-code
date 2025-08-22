@@ -66,6 +66,7 @@ const SignIn = () => {
 
                     {/* Button */}
                     <button
+                        disabled={isLoading}
                         type="submit"
                         className="w-full py-3 rounded-xl font-semibold text-lg text-white bg-gradient-to-r from-blue-500 to-indigo-600 
             hover:from-blue-600 hover:to-indigo-700 shadow-lg shadow-blue-500/30 active:scale-95 transition-transform duration-150 cursor-pointer"

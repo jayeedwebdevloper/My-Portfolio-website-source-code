@@ -2,7 +2,6 @@
 
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
-import toast from 'react-hot-toast';
 import { FaPlus } from 'react-icons/fa6';
 import ServiceCard from './ServiceCard';
 import AddServiceModal from './AddServiceModal';
@@ -13,6 +12,7 @@ const AdminServices = () => {
     const { userInformation } = useContext<any>(ContextApi);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    console.log(error)
     const [showAddForm, setShowAddForm] = useState(false);
 
     const fetchServices = async () => {

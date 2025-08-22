@@ -1,10 +1,11 @@
 "use client";
 
-import React, { use, useState } from 'react';
+import React, { useState } from 'react';
 import { FaTimes, FaImage } from 'react-icons/fa';
 import RichTextEditor from './RichTextEditor';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 
 interface AddServiceModalProps {
@@ -172,7 +173,9 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
                     <div className="flex items-center space-x-4">
                         <div className="w-16 h-16 bg-white/10 rounded-xl flex items-center justify-center border-2 border-dashed border-white/20">
                             {iconUrl ? (
-                                <img
+                                <Image
+                                    width={500}
+                                    height={500}
                                     src={iconUrl}
                                     alt="Icon preview"
                                     className="w-full h-full object-cover rounded-xl"
@@ -282,7 +285,9 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
                     <div className="grid grid-cols-3 gap-3 mb-4">
                         {galleryUrls?.map((file, index) => (
                             <div key={index} className="relative">
-                                <img
+                                <Image
+                                    width={800}
+                                    height={800}
                                     src={file}
                                     alt={`Gallery ${index + 1}`}
                                     className="aspect-video object-cover rounded-lg border border-white/20"

@@ -61,7 +61,7 @@ const RevSlider = () => {
         }, 5000);
 
         return () => clearInterval(interval);
-    }, [isAutoPlaying]);
+    }, []);
 
     const currentTestimonial = clientTestimonials[currentIndex];
 

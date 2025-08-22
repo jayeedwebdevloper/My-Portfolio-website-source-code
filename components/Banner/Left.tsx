@@ -68,7 +68,7 @@ const Left = ({ stats }: leftProps) => {
             >
                 {stats.map((stat, index) => (
                     <motion.div
-                        key={stat.label}
+                        key={index}
                         className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 text-center"
                         whileHover={{
                             scale: 1.05,

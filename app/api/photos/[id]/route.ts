@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getBucket } from "@/lib/gridfs";
 import { verifyAdmin } from "@/lib/auth";
-import { ObjectId } from "mongodb";
 
 export async function GET(
     req: NextRequest,
@@ -46,6 +45,6 @@ export async function DELETE(
         await bucket.delete(files[0]._id); // delete by ObjectId
         return NextResponse.json({ deleted: true });
     } catch (err) {
-        return NextResponse.json({ error: "Delete failed" }, { status: 400 });
+        return NextResponse.json({ error: "Delete failed", message: err }, { status: 400 });
     }
 }

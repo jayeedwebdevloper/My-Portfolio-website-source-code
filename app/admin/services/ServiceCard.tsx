@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { FaEdit, FaTrash, FaSave, FaTimes, FaUpload } from 'react-icons/fa';
 import RichTextEditor from './RichTextEditor';
 import parse from 'html-react-parser';
+import Image from 'next/image';
 
 interface Service {
     _id: string;
@@ -21,7 +22,7 @@ interface ServiceCardProps {
     onDelete?: (id: string) => void;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ service, onUpdate, onDelete }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editData, setEditData] = useState<Partial<Service>>({});
 
@@ -86,16 +87,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onUpdate, onDelete }
                                     accept="image/*"
                                     className="hidden"
                                     id={`icon-${service._id}`}
-                                    onChange={(e) => {
-                                        // Handle icon upload for editing
-                                    }}
                                 />
                                 <label htmlFor={`icon-${service._id}`} className="cursor-pointer">
                                     <FaUpload className="w-6 h-6 text-gray-400" />
                                 </label>
                             </div>
                         ) : (
-                            <img
+                            <Image
+                                width={500}
+                                height={500}
                                 src={service.icon}
                                 alt={service.title}
                                 className="w-16 h-16 rounded-xl object-cover border border-white/20"
@@ -241,7 +241,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onUpdate, onDelete }
                     <label className="block text-sm text-gray-400 mb-2">Gallery</label>
                     <div className="grid grid-cols-3 gap-3">
                         {(service.gallery || []).map((image, index) => (
-                            <img
+                            <Image
+                                width={800}
+                                height={800}
                                 key={index}
                                 src={image}
                                 alt={`Gallery ${index + 1}`}

@@ -2,7 +2,7 @@
 import axios from "axios";
 import { motion } from "motion/react";
 import Image from "next/image";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { LuBrain, LuSparkles } from "react-icons/lu";
 import parse from 'html-react-parser';
