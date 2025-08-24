@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FaTrash } from "react-icons/fa6";
 
 interface TechStack {
@@ -20,7 +21,9 @@ const TechStackCard: React.FC<TechStackCardProps> = ({ techStack }) => {
                 {/* Header */}
                 <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center space-x-4">
-                        <img
+                        <Image
+                            width={300}
+                            height={300}
                             src={techStack.icon}
                             alt={techStack.title}
                             className="w-16 h-16 rounded-xl object-cover border border-white/20"
