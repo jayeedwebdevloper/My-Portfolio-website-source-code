@@ -33,24 +33,6 @@ const AdminServices = () => {
         fetchServices();
     }, []);
 
-    // const deleteService = async (id: string) => {
-    //     if (!confirm('Are you sure you want to delete this service?')) return;
-
-    //     try {
-    //         await axios.delete(`/api/services/${id}`, {
-    //             headers: {
-    //                 "x-api-key": process.env.NEXT_PUBLIC_JWT_SECRET
-    //             }
-    //         });
-
-    //         setServices(prev => prev.filter(service => service._id !== id));
-    //         toast.success("Service deleted successfully!");
-    //     } catch (error) {
-    //         console.error("Error deleting service:", error);
-    //         toast.error("Failed to delete service");
-    //     }
-    // };
-
     if (loading) {
         return (
             <div className="dark min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-800 flex items-center justify-center">
@@ -88,10 +70,9 @@ const AdminServices = () => {
             <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {services.map((service) => (
                     <ServiceCard
+                        fetchServices={fetchServices}
                         key={service._id}
                         service={service}
-                        // onUpdate={updateService}
-                        // onDelete={deleteService}
                     />
                 ))}
 
@@ -114,6 +95,7 @@ const AdminServices = () => {
 
             {/* Add Service Modal */}
             <AddServiceModal
+                fetchServices={fetchServices}
                 userInformation={userInformation}
                 show={showAddForm}
                 onClose={() => setShowAddForm(false)}

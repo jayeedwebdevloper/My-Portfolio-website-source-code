@@ -12,12 +12,14 @@ interface AddServiceModalProps {
     show: boolean;
     onClose: () => void;
     userInformation: any;
+    fetchServices: () => void;
 }
 
 const AddServiceModal: React.FC<AddServiceModalProps> = ({
     show,
     onClose,
-    userInformation
+    userInformation,
+    fetchServices
 }) => {
     const [iconUrl, setIconUrl] = useState<string | null>(null);
     const [galleryUrls, setGalleryUrls] = useState<string[]>([]);
@@ -136,6 +138,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
 
             // Reset form
             setIconUrl(null);
+            fetchServices();
             setGalleryUrls([]);
             setFeatures([]);
             setTechnology([]);

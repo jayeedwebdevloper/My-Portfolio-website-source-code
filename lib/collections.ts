@@ -7,5 +7,6 @@ export async function getCollections() {
     return {
         services: db.collection("services"),
         information: db.collection("information"),
+        technology: db.collection("technology")
     };
 }

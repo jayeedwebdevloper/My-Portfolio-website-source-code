@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { LuBrain, LuSparkles } from "react-icons/lu";
 import parse from 'html-react-parser';
+import Link from "next/link";
 
 const ShortServices = () => {
     const [services, setServices] = useState<any[]>([]);
@@ -131,12 +132,13 @@ const ShortServices = () => {
                                         ))}
                                     </div>
 
-                                    <button
+                                    <Link
+                                        href={`/services/${service?._id}`}
                                         className="w-full justify-between group-hover:bg-white/10 transition-all duration-200 mt-auto relative z-10 rounded-2xl border border-white/10 hover:border-white/30 text-gray-300 hover:text-white flex items-center px-6 py-3 text-sm font-semibold bg-white/5 backdrop-blur-xl shadow-lg hover:shadow-xl cursor-pointer"
                                     >
                                         Learn More
                                         <FaArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                    </button>
+                                    </Link>
                                 </div>
                             </motion.div>
                         </div>
@@ -163,13 +165,14 @@ const ShortServices = () => {
                         <p className="text-gray-300 mb-8 text-lg max-w-2xl mx-auto">
                             Let's discuss your requirements and create something extraordinary together.
                         </p>
-                        <button
+                        <Link
+                            href="/services"
                             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg shadow-purple-500/25 rounded-2xl flex items-center justify-center px-8 py-3 text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl mx-auto cursor-pointer"
                         >
                             <LuBrain className="w-5 h-5 mr-2" />
                             View All Services
                             <FaArrowRight className="w-5 h-5 ml-2" />
-                        </button>
+                        </Link>
                     </motion.div>
                 </div>
             </motion.div>
