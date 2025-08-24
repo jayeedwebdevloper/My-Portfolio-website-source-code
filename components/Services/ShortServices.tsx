@@ -81,16 +81,16 @@ const ShortServices = () => {
                                         whileHover={{ scale: 1.05, rotate: 3 }}
                                         transition={{ type: "spring", stiffness: 300 }}
                                     >
-                                        <Image width={200} height={200} className="w-full" src={service?.icon} alt={service?.title} />
+                                        <Image width={200} height={200} className="w-full" src={service.icon} alt={service.title} />
                                         <div className="absolute inset-0 bg-white/10 rounded-3xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                     </motion.div>
 
                                     <h3 className="text-2xl text-white mb-4 relative z-10 group-hover:text-gray-100 transition-all duration-300">
-                                        {service?.title}
+                                        {service.title}
                                     </h3>
 
                                     <p className="text-gray-400 group-hover:text-gray-300 mb-6 leading-relaxed relative z-10 transition-colors duration-300 line-clamp-3">
-                                        {parse(service?.description || '')}
+                                        {parse(service.description || '')}
                                     </p>
 
                                     {/* Features */}
