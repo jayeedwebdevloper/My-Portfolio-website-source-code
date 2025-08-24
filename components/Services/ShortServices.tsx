@@ -7,10 +7,12 @@ import { FaArrowRight } from "react-icons/fa6";
 import { LuBrain, LuSparkles } from "react-icons/lu";
 import parse from 'html-react-parser';
 import Link from "next/link";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const ShortServices = () => {
     const [services, setServices] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
+    const [loadingMain, setLoadingMain] = useState(true);
 
     const fetchServices = async () => {
         setLoading(true);
@@ -81,7 +83,13 @@ const ShortServices = () => {
                                         whileHover={{ scale: 1.05, rotate: 3 }}
                                         transition={{ type: "spring", stiffness: 300 }}
                                     >
-                                        <Image width={200} height={200} className="w-full" src={service.icon} alt={service.title} />
+                                        {loadingMain && (
+                                            <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                                                <AiOutlineLoading3Quarters className="animate-spin text-4xl text-blue-400" />
+                                            </div>
+                                        )}
+                                        <Image width={200} height={200} className={`w-full ${loadingMain ? "opacity-0" : "opacity-100"
+                                            }`} onLoadingComplete={() => setLoadingMain(false)} src={service.icon} alt={service.title} />
                                         <div className="absolute inset-0 bg-white/10 rounded-3xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                     </motion.div>
 
@@ -97,7 +105,7 @@ const ShortServices = () => {
                                     <div className="mb-6 relative z-10">
                                         <h4 className="text-sm text-gray-500 group-hover:text-gray-400 mb-3 uppercase tracking-wider transition-colors duration-300">Key Features</h4>
                                         <div className="space-y-2">
-                                            {service?.features?.map((feature:string, featureIndex:number) => (
+                                            {service?.features?.map((feature: string, featureIndex: number) => (
                                                 <motion.div
                                                     key={featureIndex}
                                                     className="flex items-center space-x-2"
@@ -115,7 +123,7 @@ const ShortServices = () => {
 
                                     {/* Technologies */}
                                     <div className="flex flex-wrap gap-2 mb-6 relative z-10">
-                                        {service?.technology?.map((tech:string, techIndex:number) => (
+                                        {service?.technology?.map((tech: string, techIndex: number) => (
                                             <motion.div
                                                 key={tech}
                                                 initial={{ opacity: 0, scale: 0.8 }}
