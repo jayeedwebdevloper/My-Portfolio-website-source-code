@@ -56,7 +56,10 @@ const Header = () => {
                             transition={{ type: "spring", stiffness: 300 }}
                         >
                             <div className="relative">
-                                <Image width={110} height={100} src="/images/jayeed.png" alt="web developer, app developer, mobile, android, ios" />
+                                <Image width={110} height={100} style={{
+                                    width: "auto",
+                                    height: 'auto'
+                                }} src="/images/jayeed.png" alt="web developer, app developer, mobile, android, ios" />
                                 <motion.div
                                     className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-600 to-cyan-500 opacity-0 group-hover:opacity-20 blur-lg transition-opacity duration-300"
                                     style={{ transform: "translate(-50%, -50%)" }}

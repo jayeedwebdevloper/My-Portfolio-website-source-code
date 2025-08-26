@@ -66,7 +66,6 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
         if (type === "icon") {
             const file = files[0];
             const url = await uploadToServer(file);
-            console.log(url)
             setIconUrl(url);
         }
 

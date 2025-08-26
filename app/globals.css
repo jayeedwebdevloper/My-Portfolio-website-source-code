@@ -31,3 +31,9 @@
     scrollbar-color: #888 transparent;
     /* thumb color + track transparent */
 }
+
+
+.color-select .react-colorful {
+    width: 100%;
+    height: 200px;
+}

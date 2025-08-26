@@ -1,22 +1,44 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCode, FaPlus } from "react-icons/fa6";
 import TechStackCard from "./TechStackCard";
 import AddTechStackModal from "./AddTechStackModal";
+import axios from "axios";
 
 interface TechStack {
     _id: string;
     icon: string;
     title: string;
     description: string;
+    color1st: string;
+    color2nd: string;
 }
 
 const TechStack = () => {
     const [techStacks, setTechStacks] = useState<TechStack[]>([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<any | null>(null);
     const [showAddForm, setShowAddForm] = useState(false);
+
+    const fetchTechStack = async () => {
+        setLoading(true);
+        try {
+            const res = await axios.get("/api/techs");
+            if (res.data) {
+                setTechStacks(res.data);
+            } else {
+                setTechStacks([])
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        fetchTechStack();
+    }, [])
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-800 p-6 overflow-y-auto">
@@ -43,6 +65,7 @@ const TechStack = () => {
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {techStacks.map((techStack) => (
                     <TechStackCard
+                        fetchTechStack={fetchTechStack}
                         key={techStack._id}
                         techStack={techStack}
                     />
@@ -66,6 +89,7 @@ const TechStack = () => {
             </div>
 
             <AddTechStackModal
+                fetchTechStack={fetchTechStack}
                 show={showAddForm}
                 onClose={() => setShowAddForm(false)}
             />

@@ -5,19 +5,21 @@ import { LuHeadphones, LuZap } from 'react-icons/lu';
 import { motion } from 'motion/react';
 import Left from './Left';
 import Right from './Right';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Banner = () => {
-    const technologies = [
-        { name: "TypeScript", icon: "TS", color: "from-blue-500 to-blue-600", description: "Type-safe development" },
-        { name: "JavaScript", icon: "JS", color: "from-yellow-500 to-yellow-600", description: "Dynamic programming" },
-        { name: "React", icon: "⚛", color: "from-cyan-500 to-cyan-600", description: "UI library" },
-        { name: "React Native", icon: "RN", color: "from-blue-600 to-purple-600", description: "Mobile development" },
-        { name: "Express.js", icon: "EX", color: "from-green-500 to-green-600", description: "Web framework" },
-        { name: "Firebase", icon: "FB", color: "from-orange-500 to-red-600", description: "Backend platform" },
-        { name: "OpenAI", icon: "AI", color: "from-purple-500 to-pink-600", description: "AI integration" },
-        { name: "Node.js", icon: "NJ", color: "from-green-600 to-emerald-600", description: "Runtime environment" }
-    ];
+    const [technologies, setTechnologies] = useState<any[]>([]);
+    const fetchTechnology = async () => {
+        const res = await axios.get("/api/techs");
+        if (res.data) {
+            setTechnologies(res.data);
+            return
+        } else {
+            setTechnologies([]);
+            return
+        }
+    }
 
     const stats = [
         { value: "200+", label: "Projects Delivered", icon: IoCodeSharp },
@@ -28,7 +30,8 @@ const Banner = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    })
+        fetchTechnology();
+    }, [])
     return (
         <div className='flex items-center justify-center relative overflow-hidden pt-20'>
             <div className="absolute inset-0 -z-10">
@@ -70,8 +73,8 @@ const Banner = () => {
                 />
             </div>
 
-            <div className="container mx-auto px-5 lg:px-6 py-12">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="container mx-auto px-5 lg:px-6 pb-12 pt-16">
+                <div className="grid lg:grid-cols-2 gap-12 items-start">
                     <Left stats={stats} />
                     <Right technologies={technologies} />
                 </div>

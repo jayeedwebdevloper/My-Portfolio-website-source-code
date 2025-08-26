@@ -1,17 +1,30 @@
-import { motion } from "motion/react";
+import { AnimatePresence, color, motion } from "motion/react";
 import Image from "next/image";
+import { useState } from "react";
 import { LuCpu } from "react-icons/lu";
 
 interface RightProps {
     technologies: {
-        name: string;
+        _id: string;
+        title: string;
         icon: string;
-        color: string;
+        color1st: string;
+        color2nd: string;
         description: string;
     }[];
 }
 
 const Right = ({ technologies }: RightProps) => {
+    const colorSelection = (tech: string, color: "color1st" | "color2nd") => {
+        const selectedTech = technologies?.find(tc => tc.title === tech);
+        if (!selectedTech) return "";
+
+        return color === "color1st" ? selectedTech.color1st : selectedTech.color2nd;
+    };
+
+    const [expanded, setExpanded] = useState(false);
+    const displayedTech = expanded ? technologies : technologies?.slice(0, 6);
+
     return (
         < motion.div
             className="space-y-8"
@@ -171,7 +184,7 @@ const Right = ({ technologies }: RightProps) => {
             </motion.div >
 
             {/* Technology Stack */}
-            < motion.div
+            <motion.div
                 className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -182,29 +195,57 @@ const Right = ({ technologies }: RightProps) => {
                     <h3 className="text-lg text-white">Technology Stack</h3>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {technologies.map((tech, index) => (
-                        <motion.div
-                            key={tech.name}
-                            className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-all duration-300"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.8 + index * 0.1 }}
-                            whileHover={{ scale: 1.05 }}
+                <motion.div
+                    layout // enables smooth height transition
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+                >
+                    <AnimatePresence>
+                        {displayedTech?.map((tech, index) => {
+                            const color1 = colorSelection(tech?.title, "color1st");
+                            const color2 = colorSelection(tech?.title, "color2nd");
+
+                            return (
+                                <motion.div
+                                    key={tech.title}
+                                    layout // enables smooth reordering
+                                    className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-all duration-300"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 10 }}
+                                    transition={{ delay: index * 0.05 }}
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    <div className="flex items-start space-x-3">
+                                        <div
+                                            style={{
+                                                background: `linear-gradient(to bottom right, ${color1}, ${color2})`,
+                                            }}
+                                            className="w-10 h-10 rounded-lg flex items-center justify-center text-white text-sm flex-shrink-0 p-1"
+                                        >
+                                            <Image src={tech.icon} width={200} height={200} alt={tech.title} />
+                                        </div>
+                                        <div className="min-w-0">
+                                            <div className="text-white text-sm">{tech.title}</div>
+                                            <div className="text-gray-400 text-xs">{tech.description}</div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
+                    </AnimatePresence>
+                </motion.div>
+
+                {technologies?.length > 6 && (
+                    <div className="mt-4 text-center">
+                        <button
+                            onClick={() => setExpanded(!expanded)}
+                            className="text-sm text-blue-400 hover:underline cursor-pointer"
                         >
-                            <div className="flex items-center space-x-3">
-                                <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${tech.color} flex items-center justify-center text-white text-sm flex-shrink-0`}>
-                                    {tech.icon}
-                                </div>
-                                <div className="min-w-0">
-                                    <div className="text-white text-sm truncate">{tech.name}</div>
-                                    <div className="text-gray-400 text-xs truncate">{tech.description}</div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </motion.div >
+                            {expanded ? "Show Less" : "Show More"}
+                        </button>
+                    </div>
+                )}
+            </motion.div>
         </motion.div >
     );
 };

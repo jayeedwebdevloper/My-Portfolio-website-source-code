@@ -27,6 +27,7 @@ const ServiceDetailsComponent = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<any | null>(null);
     const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(0);
+    const [technology, setTechnology] = useState<any[]>([]);
 
     const [loadingMain, setLoadingMain] = useState(true);
     const [loadingThumbs, setLoadingThumbs] = useState<{ [key: number]: boolean }>(
@@ -68,9 +69,26 @@ const ServiceDetailsComponent = () => {
         }
     }
 
+    const fetchTechStack = async () => {
+        setIsLoading(true);
+        try {
+            const res = await axios.get("/api/techs");
+            if (res.data) {
+                setTechnology(res.data);
+            } else {
+                setTechnology([])
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0);
         fetchService();
+        fetchTechStack();
     }, [id]);
 
     useEffect(() => {
@@ -78,6 +96,20 @@ const ServiceDetailsComponent = () => {
             document.title = service.title;
         }
     }, [service]);
+
+    const colorSelection = (tech: string, color: "color1st" | "color2nd") => {
+        const selectedTech = technology?.find(tc => tc.title === tech);
+        if (!selectedTech) return "";
+
+        return color === "color1st" ? selectedTech.color1st : selectedTech.color2nd;
+    };
+
+    const imageSelection = (tech: string) => {
+        const selectedTech = technology?.find(tc => tc.title === tech);
+        if (!selectedTech) return "";
+
+        return selectedTech.icon
+    }
 
     if (isLoading) {
         return (
@@ -176,13 +208,15 @@ const ServiceDetailsComponent = () => {
                                             )}
 
                                             <Image
+                                                priority={false}
+                                                loading="lazy"
                                                 width={800}
                                                 height={600}
                                                 src={service.gallery[selectedGalleryIndex]}
                                                 alt={`${service.title} preview ${selectedGalleryIndex + 1}`}
                                                 className={`w-full h-full object-cover transition-opacity duration-500 ${loadingMain ? "opacity-0" : "opacity-100"
                                                     }`}
-                                                onLoadingComplete={() => setLoadingMain(false)}
+                                                onLoad={() => setLoadingMain(false)}
                                             />
                                         </div>
 
@@ -196,8 +230,8 @@ const ServiceDetailsComponent = () => {
                                                         setLoadingMain(true);
                                                     }}
                                                     className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all duration-300 cursor-pointer ${selectedGalleryIndex === index
-                                                            ? "border-blue-500"
-                                                            : "border-white/20 hover:border-white/40"
+                                                        ? "border-blue-500"
+                                                        : "border-white/20 hover:border-white/40"
                                                         } relative`}
                                                 >
                                                     {loadingThumbs[index] && (
@@ -206,13 +240,15 @@ const ServiceDetailsComponent = () => {
                                                         </div>
                                                     )}
                                                     <Image
+                                                        priority={false}
+                                                        loading="lazy"
                                                         width={300}
                                                         height={300}
                                                         src={image}
                                                         alt={`Preview ${index + 1}`}
                                                         className={`w-full h-full object-cover transition-opacity duration-500 ${loadingThumbs[index] ? "opacity-0" : "opacity-100"
                                                             }`}
-                                                        onLoadingComplete={() =>
+                                                        onLoad={() =>
                                                             setLoadingThumbs((prev) => ({ ...prev, [index]: false }))
                                                         }
                                                         onLoadStart={() =>
@@ -269,8 +305,11 @@ const ServiceDetailsComponent = () => {
                             >
                                 <h2 className="text-3xl text-white mb-8">Technology Stack</h2>
                                 <div className="grid grid-cols-2 gap-4">
-                                    {service.technology.map((tech, index) => (
-                                        <motion.div
+                                    {service.technology.map((tech, index) => {
+                                        const color1 = colorSelection(tech, "color1st");
+                                        const color2 = colorSelection(tech, "color2nd");
+                                        const img = imageSelection(tech);
+                                        return <motion.div
                                             key={index}
                                             initial={{ opacity: 0, scale: 0.9 }}
                                             whileInView={{ opacity: 1, scale: 1 }}
@@ -279,13 +318,15 @@ const ServiceDetailsComponent = () => {
                                             whileHover={{ scale: 1.05 }}
                                         >
                                             <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 text-center hover:bg-white/10 transition-all duration-300 rounded-2xl">
-                                                <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl p-3 mx-auto mb-3">
-                                                    <LuCode className="w-6 h-6 text-white" />
+                                                <div className={`w-12 h-12 rounded-xl mx-auto mb-3`} style={{
+                                                    background: `linear-gradient(to bottom right, ${color1}, ${color2})`,
+                                                }}>
+                                                    <Image className="rounded-xl px-1 py-1" width={200} height={200} src={img} alt={tech} />
                                                 </div>
                                                 <h3 className="text-white mb-2">{tech}</h3>
                                             </div>
                                         </motion.div>
-                                    ))}
+                                    })}
                                 </div>
                             </motion.div>
                         </div>
