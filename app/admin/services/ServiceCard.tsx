@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useContext, useState } from 'react';
-import { FaEdit, FaTrash, FaSave, FaTimes, FaUpload } from 'react-icons/fa';
-import RichTextEditor from './RichTextEditor';
+import { FaTrash } from 'react-icons/fa';
 import parse from 'html-react-parser';
 import Image from 'next/image';
 import axios from 'axios';

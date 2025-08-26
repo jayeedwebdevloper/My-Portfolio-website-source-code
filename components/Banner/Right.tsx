@@ -1,4 +1,4 @@
-import { AnimatePresence, color, motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
 import { LuCpu } from "react-icons/lu";

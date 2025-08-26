@@ -3,7 +3,7 @@
 import { ContextApi } from "@/Context/Context";
 import axios from "axios";
 import Image from "next/image";
-import React, { FormEvent, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { RgbaColorPicker } from "react-colorful";
 import toast from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
