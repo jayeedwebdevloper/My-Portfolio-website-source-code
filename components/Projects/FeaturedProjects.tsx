@@ -1,39 +1,44 @@
 "use client";
+import axios from "axios";
 import { motion } from "motion/react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { LuBrain, LuExternalLink, LuGithub, LuSparkles, LuZap } from "react-icons/lu";
+import parse from "html-react-parser";
+
+interface Project {
+    _id: string;
+    title: string;
+    description: string;
+    category: string;
+    gallery: string[];
+    link: string;
+    tags: string[];
+    client: string;
+    covered: boolean;
+    technologies: string[];
+    duration: string;
+    keyFeatures: string[];
+    githubLink?: string;
+}
 
 const FeaturedProjects = () => {
-    const projects = [
-        {
-            title: "AI-Powered E-Commerce Platform",
-            description: "Intelligent e-commerce solution with React, Node.js, and OpenAI integration. Features include AI product recommendations, smart search, and automated",
-            image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
-            technologies: ["React", "Node.js", "OpenAI", "Firebase"],
-            category: "AI Web Development",
-            status: "Completed",
-            aiFeatures: ["Smart", "Automated Support", "Intelligent Search"]
-        },
-        {
-            title: "Neural Chat Mobile App",
-            description: "Advanced messaging application with OpenAI GPT integration for smart replies, content generation, and real-time translation capabilities.",
-            image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
-            technologies: ["React Native", "OpenAI", "WebSocket", "Firebase"],
-            category: "AI Mobile Development",
-            status: "In Progress",
-            aiFeatures: ["Smart Replies", "Content Generation", "Real-time Translation"]
-        },
-        {
-            title: "Intelligent Analytics Dashboard",
-            description: "AI-driven business intelligence platform with predictive analytics, automated insights, and natural language querying capabilities.",
-            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-            technologies: ["TypeScript", "React", "OpenAI", "Express.js"],
-            category: "AI Web Development",
-            status: "Completed",
-            aiFeatures: ["Predictive Analytics", "Auto Insights", "NL Querying"]
+    const [projects, setProjects] = useState<Project[]>([]);
+
+    const fetchProjects = async () => {
+        const res = await axios.get('/api/projects');
+
+        if (res.data) {
+            setProjects(res.data);
+        } else {
+            setProjects([]);
         }
-    ]
+    }
+
+    useEffect(() => {
+        fetchProjects();
+    }, [])
 
     return (
         <div className="py-24 container mx-auto px-5 lg:px-6">
@@ -60,7 +65,7 @@ const FeaturedProjects = () => {
             </motion.div>
 
             <div className="grid gap-4 grid-cols-1 lg:grid-cols-3">
-                {projects.map((project, index) => (
+                {projects?.slice(-3).map((project, index) => (
                     <div key={index} className="px-4">
                         <motion.div
                             className="h-full"
@@ -72,19 +77,22 @@ const FeaturedProjects = () => {
                                     <Image
                                         width={1000}
                                         height={600}
-                                        src={project.image}
+                                        src={project.gallery[0]}
                                         alt={project.title}
-                                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-700"
+                                        className={`w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-700 ${project.covered ? 'blur-2xl' : 'blur-none'}`}
                                     />
+
+                                    {project.covered && (
+                                        <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center px-4">
+                                            <p className="text-white font-bold text-lg mb-2">Sensitive Content</p>
+                                        </div>
+                                    )}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                                     <div className="absolute top-4 left-4">
                                         <div
-                                            className={`${project.status === 'Completed'
-                                                ? 'bg-green-500/90 text-white border-green-400/50'
-                                                : 'bg-yellow-500/90 text-white border-yellow-400/50'
-                                                } backdrop-blur-sm rounded-full px-2`}
+                                            className={`bg-green-700/90 text-white border-green-400/50 rounded-3xl px-2`}
                                         >
-                                            {project.status}
+                                            {project.category}
                                         </div>
                                     </div>
                                     <div className="absolute top-4 right-4">
@@ -100,20 +108,13 @@ const FeaturedProjects = () => {
                                 </div>
 
                                 <div className="p-6 relative z-10 flex flex-col">
-                                    <div className="mb-4">
-                                        <p
-                                            className="bg-white/10 backdrop-blur-sm border-purple-400/30 text-purple-300 text-xs mb-3 rounded-full px-2 py-1 w-fit"
-                                        >
-                                            {project.category}
-                                        </p>
-                                    </div>
 
                                     <h3 className="text-xl text-white group-hover:text-gray-100 mb-3 transition-all duration-300">
                                         {project.title}
                                     </h3>
 
-                                    <p className="text-gray-400 group-hover:text-gray-300 mb-4 text-sm leading-relaxed transition-colors duration-300">
-                                        {project.description}
+                                    <p className="text-gray-400 group-hover:text-gray-300 mb-4 text-sm leading-relaxed transition-colors duration-300 line-clamp-3">
+                                        {parse(project.description)}
                                     </p>
 
                                     {/* AI Features */}
@@ -123,7 +124,7 @@ const FeaturedProjects = () => {
                                             Features
                                         </h4>
                                         <div className="flex flex-wrap gap-1">
-                                            {project.aiFeatures.map((feature, featureIndex) => (
+                                            {project.keyFeatures.slice(0, 3).map((feature, featureIndex) => (
                                                 <motion.div
                                                     key={featureIndex}
                                                     initial={{ opacity: 0, scale: 0.8 }}
@@ -131,19 +132,20 @@ const FeaturedProjects = () => {
                                                     transition={{ delay: featureIndex * 0.1 }}
                                                     viewport={{ once: true }}
                                                 >
-                                                    <p
-                                                        className="bg-purple-500/20 text-purple-300 border-purple-400/30 text-xs rounded-full hover:scale-105 transition-transform hover:text-purple-200 px-2 py-1"
-                                                    >
+                                                    <p className="bg-purple-500/20 text-purple-300 border-purple-400/30 text-xs rounded-full hover:scale-105 transition-transform hover:text-purple-200 px-2 py-1 capitalize">
                                                         {feature}
                                                     </p>
                                                 </motion.div>
                                             ))}
+                                            {project.keyFeatures.length > 3 && (
+                                                <p className="text-purple-300 text-xs px-2 py-1">...</p>
+                                            )}
                                         </div>
                                     </div>
 
                                     {/* Technologies */}
                                     <div className="flex flex-wrap gap-2 mb-6">
-                                        {project.technologies.map((tech, techIndex) => (
+                                        {project.technologies.slice(0, 3).map((tech, techIndex) => (
                                             <motion.div
                                                 key={tech}
                                                 initial={{ opacity: 0, y: 10 }}
@@ -151,13 +153,14 @@ const FeaturedProjects = () => {
                                                 transition={{ delay: techIndex * 0.1 }}
                                                 viewport={{ once: true }}
                                             >
-                                                <p
-                                                    className="bg-white/10 backdrop-blur-sm border border-white/20 text-xs hover:bg-white/15 transition-colors duration-200 rounded-full hover:scale-105 text-gray-300 hover:text-white px-2 py-1"
-                                                >
+                                                <p className="bg-white/10 backdrop-blur-sm border border-white/20 text-xs hover:bg-white/15 transition-colors duration-200 rounded-full hover:scale-105 text-gray-300 hover:text-white px-2 py-1 capitalize">
                                                     {tech}
                                                 </p>
                                             </motion.div>
                                         ))}
+                                        {project.technologies.length > 3 && (
+                                            <p className="text-gray-300 text-xs px-2 py-1">...</p>
+                                        )}
                                     </div>
 
                                     <div className="flex justify-between items-center">
