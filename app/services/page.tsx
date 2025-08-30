@@ -10,6 +10,15 @@ import Image from "next/image";
 import parse from "html-react-parser";
 import Link from "next/link";
 
+interface ExperienceState {
+    _id: string;
+    clients: number;
+    projects: number;
+    years: number;
+    support: string;
+    countries: number;
+}
+
 const Services = () => {
     const [services, setServices] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,10 +42,36 @@ const Services = () => {
         }
     }
 
+    const [experience, setExperience] = useState<ExperienceState>({
+        _id: "",
+        clients: 0,
+        projects: 0,
+        years: 0,
+        support: "",
+        countries: 0
+    });
+
+    const fetchExperience = async () => {
+        setIsLoading(true);
+        try {
+            const res = await axios.get("/api/experience");
+            if (res.data && res.data.length > 0) {
+                setExperience(res.data[0]);
+            } else {
+                setExperience({ _id: "", clients: 0, projects: 0, years: 0, support: "", countries: 0 });
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0);
         document.title = "Full-Stack Services"
         fetchServices();
+        fetchExperience();
     }, [])
 
     if (isLoading) {
@@ -200,15 +235,15 @@ const Services = () => {
                                         <div className="text-gray-400">Services Available</div>
                                     </div>
                                     <div>
-                                        <div className="text-4xl text-purple-400 mb-2">200+</div>
+                                        <div className="text-4xl text-purple-400 mb-2">{experience?.projects}+</div>
                                         <div className="text-gray-400">Projects Delivered</div>
                                     </div>
                                     <div>
-                                        <div className="text-4xl text-cyan-400 mb-2">100+</div>
+                                        <div className="text-4xl text-cyan-400 mb-2">{experience?.clients}+</div>
                                         <div className="text-gray-400">Happy Clients</div>
                                     </div>
                                     <div>
-                                        <div className="text-4xl text-green-400 mb-2">24/7</div>
+                                        <div className="text-4xl text-green-400 mb-2">{experience?.support}</div>
                                         <div className="text-gray-400">Support Available</div>
                                     </div>
                                 </div>

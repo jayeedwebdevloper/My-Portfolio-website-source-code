@@ -4,21 +4,77 @@ import { motion } from "motion/react";
 import Features from "./Features";
 import ShowAble from "./Showable";
 import Expertise from "./Experties";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { TiWorldOutline } from "react-icons/ti";
+
+interface Expertise {
+    _id: string;
+    title: string;
+    percentage: number;
+    rangeColor: string;
+}
+
+interface ExperienceState {
+    _id: string;
+    clients: number;
+    projects: number;
+    years: number;
+    support: string;
+    countries: number;
+}
 
 const HomeAbout = () => {
+    const [loading, setLoading] = useState(false);
+    const [experience, setExperience] = useState<ExperienceState>({
+        _id: "",
+        clients: 0,
+        projects: 0,
+        years: 0,
+        support: "",
+        countries: 0
+    });
+
+    const fetchExperience = async () => {
+        setLoading(true);
+        try {
+            const res = await axios.get("/api/experience");
+            if (res.data && res.data.length > 0) {
+                setExperience(res.data[0]);
+            } else {
+                setExperience({ _id: "", clients: 0, projects: 0, years: 0, support: "", countries: 0 });
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false);
+        }
+    }
+
     const stats = [
-        { icon: LuUsers, label: "Happy Clients", value: "100+", color: "from-blue-500 to-cyan-500" },
-        { icon: LuAward, label: "Projects Completed", value: "200+", color: "from-purple-500 to-pink-500" },
-        { icon: LuClock, label: "Years Experience", value: "5+", color: "from-green-500 to-emerald-500" },
-        { icon: LuBrain, label: "AI Integrations", value: "50+", color: "from-orange-500 to-red-500" },
+        { icon: LuUsers, label: "Happy Clients", value: experience ? `${experience.clients}+` : "0", color: "from-blue-500 to-cyan-500" },
+        { icon: LuAward, label: "Projects Completed", value: experience ? `${experience.projects}+` : "0", color: "from-purple-500 to-pink-500" },
+        { icon: LuClock, label: "Years Experience", value: experience ? `${experience.years}+` : "0", color: "from-green-500 to-emerald-500" },
+        { icon: TiWorldOutline, label: "Countries Served", value: experience ? `${experience.countries}+` : "0", color: "from-orange-500 to-red-500" },
     ];
 
-    const expertise = [
-        { name: "Frontend Development", percentage: 95, color: "from-blue-500 to-purple-500" },
-        { name: "Backend Development", percentage: 90, color: "from-purple-500 to-cyan-500" },
-        { name: "Mobile Development", percentage: 85, color: "from-cyan-500 to-blue-500" },
-        { name: "AI Integration", percentage: 88, color: "from-purple-500 to-pink-500" },
-    ];
+    const [expertise, setExpertise] = useState<Expertise[]>([]);
+
+    const fetchExpertise = async () => { 
+        setLoading(true);
+        try {
+            const res = await axios.get("/api/skills");
+            if (res.data) { 
+                setExpertise(res.data);
+            } else {
+                setExpertise([]);
+            }
+        } catch (error) {
+            console.error("Error fetching expertise:", error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     const features = [
         {
@@ -42,6 +98,11 @@ const HomeAbout = () => {
             description: "Stay ahead with the latest technologies and best practices in software development."
         }
     ];
+
+    useEffect(() => {
+        fetchExpertise();
+        fetchExperience();
+    }, []);
 
     return (
         <div className="py-24 relative overflow-hidden">
@@ -98,7 +159,7 @@ const HomeAbout = () => {
                 <ShowAble stats={stats} />
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <Features features={features} />
-                    <Expertise expertise={expertise} />
+                    <Expertise expertise={expertise} loading={loading} />
                 </div>
             </div>
         </div>

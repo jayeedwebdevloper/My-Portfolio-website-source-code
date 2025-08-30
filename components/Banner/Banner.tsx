@@ -8,6 +8,15 @@ import Right from './Right';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+interface ExperienceState {
+    _id: string;
+    clients: number;
+    projects: number;
+    years: number;
+    support: string;
+    countries: number;
+}
+
 const Banner = () => {
     const [technologies, setTechnologies] = useState<any[]>([]);
     const fetchTechnology = async () => {
@@ -21,16 +30,39 @@ const Banner = () => {
         }
     }
 
+    const [experience, setExperience] = useState<ExperienceState>({
+        _id: "",
+        clients: 0,
+        projects: 0,
+        years: 0,
+        support: "",
+        countries: 0
+    });
+
+    const fetchExperience = async () => {
+        try {
+            const res = await axios.get("/api/experience");
+            if (res.data && res.data.length > 0) {
+                setExperience(res.data[0]);
+            } else {
+                setExperience({ _id: "", clients: 0, projects: 0, years: 0, support: "", countries: 0 });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const stats = [
-        { value: "200+", label: "Projects Delivered", icon: IoCodeSharp },
-        { value: "50+", label: "Happy Clients", icon: IoSparklesOutline },
+        { value: experience ? `${experience.projects}+` : "0", label: "Projects Delivered", icon: IoCodeSharp },
+        { value: experience ? `${experience.clients}+` : "0", label: "Happy Clients", icon: IoSparklesOutline },
         { value: "99%", label: "Success Rate", icon: LuZap },
-        { value: "24/7", label: "Support", icon: LuHeadphones }
+        { value: experience ? `${experience.support}` : "0/0", label: "Support", icon: LuHeadphones }
     ];
 
     useEffect(() => {
         window.scrollTo(0, 0);
         fetchTechnology();
+        fetchExperience();
     }, [])
     return (
         <div className='flex items-center justify-center relative overflow-hidden pt-20'>

@@ -1,12 +1,22 @@
 "use client";
 import { motion } from "motion/react";
+import { FC } from "react";
 
-const AboutStats = () => {
+interface AboutStatsProps {
+    experience?: {
+        years: number;
+        projects: number;
+        clients: number;
+        countries: number;
+    };
+}
+
+const AboutStats: FC<AboutStatsProps> = ({experience}) => {
     const personalStats = [
-        { label: "Years of Experience", value: "5+" },
-        { label: "Projects Completed", value: "200+" },
-        { label: "Happy Clients", value: "100+" },
-        { label: "Countries Served", value: "15+" }
+        { label: "Years of Experience", value: experience ? `${experience.years}+` : "0" },
+        { label: "Projects Completed", value: experience ? `${experience.projects}+` : "0" },
+        { label: "Happy Clients", value: experience ? `${experience.clients}+` : "0" },
+        { label: "Countries Served", value: experience ? `${experience.countries}+` : "0" }
     ];
     return (
         <motion.div

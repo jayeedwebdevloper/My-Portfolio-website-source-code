@@ -1,16 +1,65 @@
 "use client";
 import { motion } from "motion/react";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { LuCalendar, LuHeart, LuMapPin, LuStar } from "react-icons/lu";
 import AboutStats from "./AboutStats";
 import Testimonial from "./Testimonial";
+import axios from "axios";
+
+interface ExperienceState {
+    _id: string;
+    clients: number;
+    projects: number;
+    years: number;
+    support: string;
+    countries: number;
+}
+
 
 const AboutPage = () => {
+    const [loading, setLoading] = useState(false);
+    const [experience, setExperience] = useState<ExperienceState>({
+        _id: "",
+        clients: 0,
+        projects: 0,
+        years: 0,
+        support: "",
+        countries: 0
+    });
+
+    const fetchExperience = async () => {
+        setLoading(true);
+        try {
+            const res = await axios.get("/api/experience");
+            if (res.data && res.data.length > 0) {
+                setExperience(res.data[0]);
+            } else {
+                setExperience({ _id: "", clients: 0, projects: 0, years: 0, support: "", countries: 0 });
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0);
         document.title = "About Me | Jayeed Bin Hossian";
-    });
+        fetchExperience();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="dark min-h-screen bg-transparent flex items-center justify-center">
+                <div className="flex items-center space-x-4">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gradient-to-r from-blue-400 to-purple-500"></div>
+                    <span className="text-lg text-gray-200">Loading dashboard...</span>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="container mx-auto px-3 md:px-5 lg:px-6">
@@ -80,7 +129,6 @@ const AboutPage = () => {
                     initial={{ opacity: 0, x: 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    viewport={{ once: true }}
                     className="order-1 lg:order-2"
                 >
                     <div
@@ -114,7 +162,7 @@ const AboutPage = () => {
                             <div className="w-8 h-8 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-2">
                                 <LuCalendar className="w-4 h-4 text-purple-400" />
                             </div>
-                            <span>{5}+ years of passionate development</span>
+                            <span>{experience?.years}+ years of passionate development</span>
                         </div>
                     </div>
 
@@ -131,7 +179,7 @@ const AboutPage = () => {
                 </motion.div>
             </div>
 
-            <AboutStats />
+            <AboutStats experience={experience} />
 
             <motion.div
                 initial={{ opacity: 0, y: 30 }}

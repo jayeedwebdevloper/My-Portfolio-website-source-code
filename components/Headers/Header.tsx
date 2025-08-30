@@ -49,7 +49,7 @@ const Header = () => {
         >
             <nav className="container mx-auto px-5 lg:px-6 py-4">
                 <div className="flex items-center justify-between">
-                    <Link href="/" className="cursor-pointer">
+                    <Link href="/" className="cursor-pointer block pr-4">
                         <motion.div
                             className="flex items-center space-x-3 group"
                             whileHover={{ scale: 1.05 }}
