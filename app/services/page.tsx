@@ -172,9 +172,9 @@ const Services = () => {
                                                 </div>
 
                                                 {/* Description */}
-                                                <p className="text-gray-400 mb-6 leading-relaxed line-clamp-3">
+                                                <div className="text-gray-400 mb-6 leading-relaxed line-clamp-3">
                                                     {parse(service?.description)}
-                                                </p>
+                                                </div>
 
                                                 {/* Features */}
                                                 <div className="mb-6">

@@ -1,8 +1,10 @@
 "use client";
 
+import axios from "axios";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa6";
 import { LuBrain, LuGithub, LuLinkedin, LuMail, LuSparkles, LuTwitter, LuZap } from "react-icons/lu";
 
@@ -14,32 +16,26 @@ const Footer = () => {
         { icon: LuMail, href: "#", label: "Email", color: "hover:text-purple-400" },
     ];
 
-    const footerLinks = {
-        "AI Services": [
-            "AI-Enhanced Web Development",
-            "Intelligent Mobile Apps",
-            "OpenAI Integration",
-            "Custom AI Solutions",
-            "Machine Learning",
-            "AI Consulting"
-        ],
-        "Technologies": [
-            "React & TypeScript",
-            "React Native",
-            "Node.js & Express",
-            "OpenAI & ChatGPT",
-            "Firebase & Cloud",
-            "AI/ML Frameworks"
-        ],
-        "Resources": [
-            "AI Documentation",
-            "OpenAI API Guides",
-            "Support Center",
-            "AI Community",
-            "Privacy Policy",
-            "Terms of Service"
-        ]
-    };
+    const [footerItems, setFooterItems] = useState<any>({});
+
+    const fetchFooterItems = async () => { 
+        try {
+            const resServices = await axios.get("/api/services");
+            const resTechnologies = await axios.get("/api/techs");
+            if (resServices.data || resTechnologies.data) {
+                setFooterItems({
+                    services: resServices.data || [],
+                    technologies: resTechnologies.data || []
+                })
+            }
+        } catch (error) {
+            console.error("Error fetching footer items:", error);
+        }
+    }
+
+    useEffect(() => {
+        fetchFooterItems();
+    }, []);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -138,40 +134,71 @@ const Footer = () => {
                     </div>
 
                     {/* Enhanced Links Sections */}
-                    {Object.entries(footerLinks).map(([title, links], sectionIndex) => (
-                        <motion.div
-                            key={title}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: sectionIndex * 0.2 }}
-                            viewport={{ once: true }}
-                        >
-                            <h4 className="text-white mb-6 flex items-center">
-                                {title === "AI Services" && <LuBrain className="w-4 h-4 mr-2 text-purple-400" />}
-                                {title === "Technologies" && <LuZap className="w-4 h-4 mr-2 text-cyan-400" />}
-                                {title === "Resources" && <LuSparkles className="w-4 h-4 mr-2 text-yellow-400" />}
-                                {title}
-                            </h4>
-                            <ul className="space-y-3">
-                                {links.map((link, linkIndex) => (
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0 * 0.2 }}
+                        viewport={{ once: true }}
+                    >
+                        <h4 className="text-white mb-6 flex items-center">
+                            Our Services <LuBrain className="w-4 h-4 mr-2 text-purple-400" />
+                            {/* {title === "Technologies" && <LuZap className="w-4 h-4 mr-2 text-cyan-400" />}
+                            {title === "Resources" && <LuSparkles className="w-4 h-4 mr-2 text-yellow-400" />}
+                            {title} */}
+                        </h4>
+                        <ul className="space-y-3">
+                            {footerItems?.services?.map((item:any, index:number) => (
+                                <motion.li
+                                    key={index}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: index * 0.1 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <Link
+                                        href={`/services/${item._id}`}
+                                        className="text-gray-400 hover:text-white transition-all duration-300 text-sm hover:translate-x-1 inline-block hover:bg-white/5 px-2 py-1 rounded-lg"
+                                    >
+                                        {item.title}
+                                    </Link>
+                                </motion.li>
+                            ))}
+                        </ul>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0 * 0.2 }}
+                        viewport={{ once: true }}
+                    >
+                        <h4 className="text-white mb-6 flex items-center">
+                            Technologies <LuZap className="w-4 h-4 mr-2 text-cyan-400" />
+                            {/* {title === "Resources" && <LuSparkles className="w-4 h-4 mr-2 text-yellow-400" />}
+                            {title} */}
+                        </h4>
+                        <ul className="space-y-3">
+                            {footerItems?.technologies
+                                ?.reduce((rows: any[][], item: any, index: number) => {
+                                    if (index % 3 === 0) rows.push([item]);
+                                    else rows[rows.length - 1].push(item);
+                                    return rows;
+                                }, [])
+                                .map((row:any, rowIndex:number) => (
                                     <motion.li
-                                        key={link}
+                                        key={rowIndex}
                                         initial={{ opacity: 0, x: -20 }}
                                         whileInView={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: linkIndex * 0.1 }}
+                                        transition={{ delay: rowIndex * 0.1 }}
                                         viewport={{ once: true }}
                                     >
-                                        <Link
-                                            href="#"
-                                            className="text-gray-400 hover:text-white transition-all duration-300 text-sm hover:translate-x-1 inline-block hover:bg-white/5 px-2 py-1 rounded-lg"
-                                        >
-                                            {link}
-                                        </Link>
+                                        <p className="text-gray-400 hover:text-white transition-all duration-300 text-sm hover:translate-x-1 inline-block hover:bg-white/5 px-2 py-1 rounded-lg">
+                                            {row.map((tech: any) => tech.title).join(" , ")}
+                                        </p>
                                     </motion.li>
                                 ))}
-                            </ul>
-                        </motion.div>
-                    ))}
+                        </ul>
+                    </motion.div>
                 </div>
 
                 {/* Enhanced Bottom Section */}

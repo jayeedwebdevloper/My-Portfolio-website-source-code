@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { LuBrain, LuExternalLink, LuGithub, LuSparkles, LuZap } from "react-icons/lu";
 import parse from "html-react-parser";
+import Link from "next/link";
 
 interface Project {
     _id: string;
@@ -113,9 +114,9 @@ const FeaturedProjects = () => {
                                         {project.title}
                                     </h3>
 
-                                    <p className="text-gray-400 group-hover:text-gray-300 mb-4 text-sm leading-relaxed transition-colors duration-300 line-clamp-3">
+                                    <div className="text-gray-400 group-hover:text-gray-300 mb-4 text-sm leading-relaxed transition-colors duration-300 line-clamp-3">
                                         {parse(project.description)}
-                                    </p>
+                                    </div>
 
                                     {/* AI Features */}
                                     <div className="mb-4">
@@ -164,18 +165,23 @@ const FeaturedProjects = () => {
                                     </div>
 
                                     <div className="flex justify-between items-center">
-                                        <button
-                                            className="hover:bg-white/10 transition-all duration-200 p-0 text-cyan-400 hover:text-cyan-300 rounded-full px-4 py-2 flex items-center cursor-pointer"
-                                        >
-                                            <LuExternalLink className="w-4 h-4 mr-2" />
-                                            Live Demo
-                                        </button>
-                                        <button
+                                        {
+                                            project.link ?
+                                                <Link
+                                                    target="_blank"
+                                                    href={project.link}
+                                                    className="hover:bg-white/10 transition-all duration-200 p-0 text-cyan-400 hover:text-cyan-300 rounded-full px-4 py-2 flex items-center cursor-pointer"
+                                                >
+                                                    <LuExternalLink className="w-4 h-4 mr-2" />
+                                                    Live Demo
+                                                </Link> : <span></span>
+                                        }
+                                        <Link
+                                            href={`/projects/${project._id}`}
                                             className="hover:bg-white/10 transition-all duration-200 p-0 text-gray-400 hover:text-gray-300 rounded-full px-4 py-2 flex items-center cursor-pointer"
                                         >
-                                            <LuGithub className="w-4 h-4 mr-2" />
-                                            Code
-                                        </button>
+                                            Details
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -215,14 +221,14 @@ const FeaturedProjects = () => {
                             and cutting-edge development projects that push the boundaries of technology.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button
-                                onClick={() => alert("AI Projects Coming Soon!")}
+                            <Link
+                                href="/projects"
                                 className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white border-0 shadow-lg shadow-purple-500/25 rounded-full z-10 flex items-center justify-center px-4 py-2 cursor-pointer"
                             >
                                 <LuBrain className="w-5 h-5 mr-2" />
                                 View All Projects
                                 <FaArrowRight className="w-4 h-4 ml-2" />
-                            </button>
+                            </Link>
                             <button
                                 className="bg-white/5 backdrop-blur-xl border-white/20 hover:bg-white/10 text-white rounded-full flex items-center justify-center px-4 py-2 cursor-pointer"
                             >

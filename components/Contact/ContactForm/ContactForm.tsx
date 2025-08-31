@@ -52,7 +52,7 @@ const ContactForm = () => {
                         <LuBrain className="w-4 h-4 mr-2 text-purple-400" />
                         Contact Us
                     </div>
-                    <h2 className="text-5xl lg:text-6xl mb-8 bg-gradient-to-r from-white via-blue-200 to-purple-300 bg-clip-text text-transparent">
+                    <h2 className="text-5xl lg:text-6xl pb-8 bg-gradient-to-r from-white via-blue-200 to-purple-300 bg-clip-text text-transparent">
                         Let's Build Full-Stack Magic Together
                     </h2>
                     <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">

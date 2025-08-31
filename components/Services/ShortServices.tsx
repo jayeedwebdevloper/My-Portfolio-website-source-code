@@ -97,9 +97,9 @@ const ShortServices = () => {
                                         {service.title}
                                     </h3>
 
-                                    <p className="text-gray-400 group-hover:text-gray-300 mb-6 leading-relaxed relative z-10 transition-colors duration-300 line-clamp-3">
+                                    <div className="text-gray-400 group-hover:text-gray-300 mb-6 leading-relaxed relative z-10 transition-colors duration-300 line-clamp-3">
                                         {parse(service.description || '')}
-                                    </p>
+                                    </div>
 
                                     {/* Features */}
                                     <div className="mb-6 relative z-10">
