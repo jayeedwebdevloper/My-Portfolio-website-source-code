@@ -2,7 +2,7 @@ import { FC } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import parse from "html-react-parser";
-import { LuArrowRight, LuBrain, LuExternalLink, LuGithub } from "react-icons/lu";
+import { LuBrain, LuGithub } from "react-icons/lu";
 import Link from "next/link";
 import { FiAlertCircle } from "react-icons/fi";
 import ProjectLink from "@/lib/confirmationVisit";

@@ -32,7 +32,7 @@ const Expertise = ({ expertise, loading }: Props) => {
                             <div className="dark min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-800 flex items-center justify-center">
                                 <div className="flex items-center space-x-4">
                                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gradient-to-r from-blue-400 to-purple-500"></div>
-                                    <span className="text-lg text-gray-200">Loading dashboard...</span>
+                                    <span className="text-lg text-gray-200">Loading...</span>
                                 </div>
                             </div>
                         )

@@ -48,7 +48,7 @@ const ProjectsDetails = () => {
         if (id) {
             fetchProject();
         }
-    }, [id]);
+    }, [id, fetchProject]);
 
     useEffect(() => {
         if (project) {

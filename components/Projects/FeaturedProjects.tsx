@@ -4,9 +4,11 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
-import { LuBrain, LuExternalLink, LuGithub, LuSparkles, LuZap } from "react-icons/lu";
+import { LuBrain, LuGithub, LuSparkles, LuZap } from "react-icons/lu";
 import parse from "html-react-parser";
 import Link from "next/link";
+import ProjectLink from "@/lib/confirmationVisit";
+import ViewDetails from "@/lib/visitDetailsRestriction";
 
 interface Project {
     _id: string;
@@ -26,6 +28,7 @@ interface Project {
 
 const FeaturedProjects = () => {
     const [projects, setProjects] = useState<Project[]>([]);
+    const [information, setInformation] = useState<{github: string}>({github: ''});
 
     const fetchProjects = async () => {
         const res = await axios.get('/api/projects');
@@ -35,10 +38,24 @@ const FeaturedProjects = () => {
         } else {
             setProjects([]);
         }
+    };
+
+    const fetchInformation = async () => {
+        try {
+            const res = await axios.get('/api/information');
+            if (res.data) {
+                setInformation(res.data[0]);
+            } else {
+                setInformation({github: ''});
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     useEffect(() => {
         fetchProjects();
+        fetchInformation();
     }, [])
 
     return (
@@ -66,7 +83,7 @@ const FeaturedProjects = () => {
             </motion.div>
 
             <div className="grid gap-4 grid-cols-1 lg:grid-cols-3">
-                {projects?.slice(-3).map((project, index) => (
+                {projects?.slice(-3)?.map((project, index) => (
                     <div key={index} className="px-4">
                         <motion.div
                             className="h-full"
@@ -167,21 +184,9 @@ const FeaturedProjects = () => {
                                     <div className="flex justify-between items-center">
                                         {
                                             project.link ?
-                                                <Link
-                                                    target="_blank"
-                                                    href={project.link}
-                                                    className="hover:bg-white/10 transition-all duration-200 p-0 text-cyan-400 hover:text-cyan-300 rounded-full px-4 py-2 flex items-center cursor-pointer"
-                                                >
-                                                    <LuExternalLink className="w-4 h-4 mr-2" />
-                                                    Live Demo
-                                                </Link> : <span></span>
+                                                <ProjectLink link={project.link} covered={project.covered} /> : <span></span>
                                         }
-                                        <Link
-                                            href={`/projects/${project._id}`}
-                                            className="hover:bg-white/10 transition-all duration-200 p-0 text-gray-400 hover:text-gray-300 rounded-full px-4 py-2 flex items-center cursor-pointer"
-                                        >
-                                            Details
-                                        </Link>
+                                        <ViewDetails link={`/projects/${project._id}`} covered={project.covered} />
                                     </div>
                                 </div>
                             </div>
@@ -229,13 +234,15 @@ const FeaturedProjects = () => {
                                 View All Projects
                                 <FaArrowRight className="w-4 h-4 ml-2" />
                             </Link>
-                            <button
+                            <Link
+                                href={information.github}
+                                target="_blank"
                                 className="bg-white/5 backdrop-blur-xl border-white/20 hover:bg-white/10 text-white rounded-full flex items-center justify-center px-4 py-2 cursor-pointer"
                             >
                                 <LuGithub className="w-5 h-5 mr-2" />
                                 GitHub Repository
                                 <FaArrowRight className="w-4 h-4 ml-2" />
-                            </button>
+                            </Link>
                         </div>
                     </motion.div>
                 </div>

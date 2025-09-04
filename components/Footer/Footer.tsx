@@ -6,14 +6,56 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa6";
-import { LuBrain, LuGithub, LuLinkedin, LuMail, LuSparkles, LuTwitter, LuZap } from "react-icons/lu";
+import { LuBrain, LuFacebook, LuGithub, LuLinkedin, LuMail, LuZap } from "react-icons/lu";
+
+interface Information {
+    email: string;
+    phone: string;
+    fiverr: string;
+    whatsApp: string;
+    facebook: string;
+    github: string;
+    linkedIn: string;
+}
 
 const Footer = () => {
+    const [information, setInformation] = useState<Information>({
+        email: "",
+        phone: "",
+        fiverr: "",
+        whatsApp: "",
+        facebook: "",
+        github: "",
+        linkedIn: ""
+    });
+
+
+    const fetchInformation = async () => {
+        try {
+            const res = await axios.get('/api/information');
+            if (res.data) {
+                setInformation(res.data[0]);
+            } else {
+                setInformation({
+                    email: "",
+                    phone: "",
+                    fiverr: "",
+                    whatsApp: "",
+                    facebook: "",
+                    github: "",
+                    linkedIn: ""
+                });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
     const socialLinks = [
-        { icon: LuGithub, href: "#", label: "GitHub", color: "hover:text-gray-300" },
-        { icon: LuTwitter, href: "#", label: "Twitter", color: "hover:text-blue-400" },
-        { icon: LuLinkedin, href: "#", label: "LinkedIn", color: "hover:text-blue-600" },
-        { icon: LuMail, href: "#", label: "Email", color: "hover:text-purple-400" },
+        { icon: LuGithub, href: information.github, label: "GitHub", color: "hover:text-gray-300" },
+        { icon: LuFacebook, href: information.facebook, label: "Facebook", color: "hover:text-blue-400" },
+        { icon: LuLinkedin, href: information.linkedIn, label: "LinkedIn", color: "hover:text-blue-600" },
+        { icon: LuMail, href: `mailto:${information.email}`, label: "Email", color: "hover:text-purple-400" },
     ];
 
     const [footerItems, setFooterItems] = useState<any>({});
@@ -35,6 +77,7 @@ const Footer = () => {
 
     useEffect(() => {
         fetchFooterItems();
+        fetchInformation();
     }, []);
 
     const scrollToTop = () => {
@@ -140,7 +183,7 @@ const Footer = () => {
                         transition={{ delay: 0 * 0.2 }}
                         viewport={{ once: true }}
                     >
-                        <h4 className="text-white mb-6 flex items-center">
+                        <h4 className="text-white mb-6 flex items-center gap-2">
                             Our Services <LuBrain className="w-4 h-4 mr-2 text-purple-400" />
                             {/* {title === "Technologies" && <LuZap className="w-4 h-4 mr-2 text-cyan-400" />}
                             {title === "Resources" && <LuSparkles className="w-4 h-4 mr-2 text-yellow-400" />}
@@ -172,7 +215,7 @@ const Footer = () => {
                         transition={{ delay: 0 * 0.2 }}
                         viewport={{ once: true }}
                     >
-                        <h4 className="text-white mb-6 flex items-center">
+                        <h4 className="text-white mb-6 flex items-center gap-2">
                             Technologies <LuZap className="w-4 h-4 mr-2 text-cyan-400" />
                             {/* {title === "Resources" && <LuSparkles className="w-4 h-4 mr-2 text-yellow-400" />}
                             {title} */}

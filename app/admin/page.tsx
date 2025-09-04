@@ -5,7 +5,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEdit, FaTimes } from "react-icons/fa";
-import { FaCheck, FaEnvelope, FaFacebook, FaPhone, FaWhatsapp } from "react-icons/fa6";
+import { FaCheck, FaEnvelope, FaFacebook, FaGithub, FaLinkedinIn, FaPhone, FaWhatsapp } from "react-icons/fa6";
 import { SiFiverr } from "react-icons/si";
 
 interface ContactInfo {
@@ -135,6 +135,20 @@ const Dashboard = () => {
             icon: SiFiverr,
             color: 'from-green-700 to-teal-800',
             placeholder: 'Enter your Fiverr URL'
+        },
+        {
+            key: 'github',
+            label: 'Github Profile',
+            icon: FaGithub,
+            color: 'from-slate-700 to-slate-900',
+            placeholder: 'Enter your Github URL'
+        },
+        {
+            key: 'linkedIn',
+            label: 'Linkedin Profile',
+            icon: FaLinkedinIn,
+            color: 'from-blue-700 to-blue-900',
+            placeholder: 'Enter your Linkedin URL'
         }
     ];
 
@@ -234,7 +248,7 @@ const Dashboard = () => {
                                             Call Now
                                         </button>
                                     )}
-                                    {(field.key === 'facebook' || field.key === 'whatsapp' || field.key === 'fiverr') && (
+                                    {(field.key === 'facebook' || field.key === 'whatsapp' || field.key === 'fiverr' || field.key === "github" || field.key === "linkedIn") && (
                                         <button
                                             onClick={() => window.open(currentValue, '_blank')}
                                             className="w-full bg-white/5 hover:bg-white/10 border-white/20 text-gray-300 hover:text-white rounded-lg p-2 cursor-pointer"

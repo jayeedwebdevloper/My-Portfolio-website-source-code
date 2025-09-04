@@ -89,7 +89,7 @@ const ServiceDetailsComponent = () => {
         window.scrollTo(0, 0);
         fetchService();
         fetchTechStack();
-    }, [id]);
+    }, [id, fetchService, fetchTechStack]);
 
     useEffect(() => {
         if (service) {

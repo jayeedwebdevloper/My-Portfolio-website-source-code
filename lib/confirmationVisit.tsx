@@ -40,6 +40,7 @@ export default function ProjectLink({ link, covered }: ProjectLinkProps) {
                 <Link
                     className="hover:bg-white/10 text-cyan-400 hover:text-cyan-300 p-0 px-3 py-1 text-sm flex items-center border border-cyan-400/30 rounded-lg"
                     href={link}
+                    target="_blank"
                     onClick={handleClick}
                 >
                     <LuExternalLink className="w-3 h-3 mr-1" />

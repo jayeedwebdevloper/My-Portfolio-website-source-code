@@ -1,14 +1,65 @@
 "use client";
+import axios from "axios";
 import { motion } from "motion/react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { FaEnvelope, FaLinkedinIn, FaPhone } from "react-icons/fa6";
 import { LuBrain, LuSend, LuSparkles, LuZap } from "react-icons/lu";
+import { SiFiverr } from "react-icons/si";
+
+interface Information {
+    email: string;
+    phone: string;
+    fiverr: string;
+    whatsApp: string;
+    facebook: string;
+    github: string;
+    linkedIn: string;
+}
 
 const ContactForm = () => {
     const aiFeatures = [
-        "Free AI consultation & strategy session",
-        "24/7 AI-powered project support",
-        "Intelligent development process automation",
-        "Post-launch AI optimization & monitoring"
+        "Free consultation & strategy session",
+        "15/7 project support",
+        "Intelligent development process",
+        "Post-launch optimization & support"
     ];
+    const [information, setInformation] = useState<Information>({
+        email: "",
+        phone: "",
+        fiverr: "",
+        whatsApp: "",
+        facebook: "",
+        github: "",
+        linkedIn: ""
+    });
+
+
+    const fetchInformation = async () => {
+        try {
+            const res = await axios.get('/api/information');
+            if (res.data) {
+                setInformation(res.data[0]);
+            } else {
+                setInformation({
+                    email: "",
+                    phone: "",
+                    fiverr: "",
+                    whatsApp: "",
+                    facebook: "",
+                    github: "",
+                    linkedIn: ""
+                });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    useEffect(() => {
+        fetchInformation();
+    }, []);
+
     return (
         <div className="py-24 relative overflow-hidden">
             <div className="absolute inset-0 -z-10">
@@ -173,57 +224,86 @@ const ContactForm = () => {
                                 Contact Personally
                             </h3>
                             <div className="space-y-6">
-                                <motion.div
-                                    className="flex items-start space-x-4 group"
-                                    initial={{ opacity: 0, x: 20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0 * 0.1 }}
-                                    viewport={{ once: true }}
-                                    whileHover={{ scale: 1.02 }}
-                                >
-                                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                                        {/* <info.icon className="w-6 h-6 text-white" /> */}
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white mb-1">Email</h4>
-                                        <p className="text-cyan-400 mb-1">email</p>
-                                        <p className="text-sm text-gray-400">Intelligent email routing & AI responses</p>
-                                    </div>
-                                </motion.div>
-                                <motion.div
-                                    className="flex items-start space-x-4 group"
-                                    initial={{ opacity: 0, x: 20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 1 * 0.1 }}
-                                    viewport={{ once: true }}
-                                    whileHover={{ scale: 1.02 }}
-                                >
-                                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                                        {/* <info.icon className="w-6 h-6 text-white" /> */}
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white mb-1">phone</h4>
-                                        <p className="text-cyan-400 mb-1">email</p>
-                                        <p className="text-sm text-gray-400">Intelligent email routing & AI responses</p>
-                                    </div>
-                                </motion.div>
-                                <motion.div
-                                    className="flex items-start space-x-4 group"
-                                    initial={{ opacity: 0, x: 20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 2 * 0.1 }}
-                                    viewport={{ once: true }}
-                                    whileHover={{ scale: 1.02 }}
-                                >
-                                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                                        {/* <info.icon className="w-6 h-6 text-white" /> */}
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white mb-1">phone</h4>
-                                        <p className="text-cyan-400 mb-1">email</p>
-                                        <p className="text-sm text-gray-400">Intelligent email routing & AI responses</p>
-                                    </div>
-                                </motion.div>
+                                {
+                                    information.email && (
+                                        <motion.div
+                                            className="flex items-start space-x-4 group"
+                                            initial={{ opacity: 0, x: 20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0 * 0.1 }}
+                                            viewport={{ once: true }}
+                                            whileHover={{ scale: 1.02 }}
+                                        >
+                                            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                                <FaEnvelope className="w-6 h-6 text-white" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-white mb-1">Email</h4>
+                                                <Link className="block text-cyan-400 mb-1" href={`mailto:${information.email}`}>{information.email}</Link>
+                                            </div>
+                                        </motion.div>
+                                    )
+                                }
+                                {
+                                    information.phone && (
+                                        <motion.div
+                                            className="flex items-start space-x-4 group"
+                                            initial={{ opacity: 0, x: 20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0 * 0.1 }}
+                                            viewport={{ once: true }}
+                                            whileHover={{ scale: 1.02 }}
+                                        >
+                                            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                                <FaPhone className="w-6 h-6 text-white" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-white mb-1">Phone Number</h4>
+                                                <Link className="block text-cyan-400 mb-1" href={`tel:${information.phone}`}>{information.phone}</Link>
+                                            </div>
+                                        </motion.div>
+                                    )
+                                }
+                                {
+                                    information.fiverr && (
+                                        <motion.div
+                                            className="flex items-start space-x-4 group"
+                                            initial={{ opacity: 0, x: 20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0 * 0.1 }}
+                                            viewport={{ once: true }}
+                                            whileHover={{ scale: 1.02 }}
+                                        >
+                                            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                                <SiFiverr className="w-6 h-6 text-white" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-white mb-1">Fiverr Profile</h4>
+                                                <Link target="_blank" className="block text-cyan-400 mb-1" href={information.fiverr}>Go to fiverr</Link>
+                                            </div>
+                                        </motion.div>
+                                    )
+                                }
+                                {
+                                    information.linkedIn && (
+                                        <motion.div
+                                            className="flex items-start space-x-4 group"
+                                            initial={{ opacity: 0, x: 20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0 * 0.1 }}
+                                            viewport={{ once: true }}
+                                            whileHover={{ scale: 1.02 }}
+                                        >
+                                            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                                <FaLinkedinIn className="w-6 h-6 text-white" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-white mb-1">Linkedin Profile</h4>
+                                                <Link target="_blank" className="block text-cyan-400 mb-1" href={information.linkedIn}>Go to Linkedin</Link>
+                                            </div>
+                                        </motion.div>
+                                    )
+                                }
                             </div>
                         </div>
 
