@@ -91,7 +91,7 @@ const Left = ({ stats }: leftProps) => {
                 transition={{ delay: 0.6 }}
             >
                 <Link href="/contact"
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg shadow-purple-500/25 backdrop-blur-xl group flex gap-4 items-center justify-center px-4 py-3 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 cursor-pointer"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg shadow-purple-500/25 backdrop-blur-xl group flex gap-4 items-center justify-center px-4 py-3 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 cursor-pointer w-fit"
                 >
                     <MdOutlineCode className="w-5 h-5 mr-2" />
                     Discuss Your Project
