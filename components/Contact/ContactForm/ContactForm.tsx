@@ -73,6 +73,11 @@ const ContactForm = () => {
         const email = form.email.value;
         const message = form.message.value;
 
+        if (!name || !email || !subject || !message) {
+            toast.error("All fields are required!!")
+            return
+        }
+
         const sendMessage = { name, subject, email, message };
 
         try {
