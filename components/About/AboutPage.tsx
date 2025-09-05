@@ -208,7 +208,7 @@ const AboutPage = () => {
                 </div>
             </motion.div>
 
-            {/* <Testimonial /> */}
+            <Testimonial />
         </div>
     );
 };

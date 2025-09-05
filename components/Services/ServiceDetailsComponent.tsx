@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IoAlertCircleOutline } from "react-icons/io5";
 import { LuArrowLeft, LuCheck, LuClock, LuCode, LuMessageCircle, LuStar, LuUsers } from "react-icons/lu";
 import { TbLoader2 } from "react-icons/tb";
@@ -36,7 +36,7 @@ const ServiceDetailsComponent = () => {
 
     const { id } = useParams();
 
-    const fetchService = async () => {
+    const fetchService = useCallback(async () => {
         setIsLoading(true);
         try {
             const res = await axios.get(`/api/services/${id}`);
@@ -67,9 +67,9 @@ const ServiceDetailsComponent = () => {
         } finally {
             setIsLoading(false);
         }
-    }
+    }, [id])
 
-    const fetchTechStack = async () => {
+    const fetchTechStack = useCallback(async () => {
         setIsLoading(true);
         try {
             const res = await axios.get("/api/techs");
@@ -83,7 +83,7 @@ const ServiceDetailsComponent = () => {
         } finally {
             setIsLoading(false);
         }
-    }
+    }, [])
 
     useEffect(() => {
         window.scrollTo(0, 0);

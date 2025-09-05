@@ -1,53 +1,40 @@
 "use client";
+import axios from "axios";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { LuChevronRight, LuChevronLeft, LuQuote, LuStar } from "react-icons/lu";
 
-const RevSlider = () => {
-    const clientTestimonials = [
-        {
-            id: 1,
-            name: "Sarah Chen",
-            position: "Product Manager",
-            company: "TechFlow Inc.",
-            image: "https://images.unsplash.com/photo-1655249481446-25d575f1c054?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB3b21hbiUyMGJ1c2luZXNzJTIwaGVhZHNob3R8ZW58MXx8fHwxNzU1NzAyMjE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-            quote: "Alex transformed our vision into a reality that exceeded all expectations. His attention to detail and innovative approach helped us launch a product that our users absolutely love.",
-            rating: 5,
-            projectType: "E-commerce Platform"
-        },
-        {
-            id: 2,
-            name: "Michael Rodriguez",
-            position: "CEO",
-            company: "StartupLab",
-            image: "https://images.unsplash.com/photo-1629507208649-70919ca33793?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMG1hbiUyMHByb2Zlc3Npb25hbCUyMHBvcnRyYWl0fGVufDF8fHx8MTc1NTcwMjIxNnww&ixlib=rb-4.1.0&q=80&w=1080",
-            quote: "Working with Alex was a game-changer for our startup. He didn't just build our app—he helped us understand our users better and created something truly innovative.",
-            rating: 5,
-            projectType: "Mobile Application"
-        },
-        {
-            id: 3,
-            name: "Emily Watson",
-            position: "Marketing Director",
-            company: "Creative Agency",
-            image: "https://images.unsplash.com/photo-1738750908048-14200459c3c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHByb2Zlc3Npb25hbCUyMHBvcnRyYWl0JTIwY2xpZW50fGVufDF8fHx8MTc1NTcxNzI1N3ww&ixlib=rb-4.1.0&q=80&w=1080",
-            quote: "Alex has an incredible ability to translate complex requirements into elegant solutions. His professionalism and expertise made our project a tremendous success.",
-            rating: 5,
-            projectType: "Web Development"
-        },
-        {
-            id: 4,
-            name: "David Kim",
-            position: "CTO",
-            company: "InnovateCorp",
-            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMG1hbiUyMGhlYWRzaG90fGVufDF8fHx8MTc1NTcwMjIxNnww&ixlib=rb-4.1.0&q=80&w=1080",
-            quote: "Alex's technical expertise and creative problem-solving skills helped us overcome challenges we thought were impossible. He's truly a master of his craft.",
-            rating: 5,
-            projectType: "AI Integration"
-        }
-    ];
+interface Reviews {
+    _id: string;
+    name: string;
+    position: string;
+    company: string;
+    image: string;
+    quote: string;
+    rating: number;
+    projectType: string;
+    color: string;
+}
 
+const RevSlider = () => {
+    const [clientTestimonials, setClientTestimonials] = useState<Reviews[]>([]);
+    const fetchTestimonial = async () => {
+        try {
+            const res = await axios.get("/api/testimonial");
+            if (res.data) {
+                setClientTestimonials(res.data);
+            } else {
+                setClientTestimonials([]);
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchTestimonial();
+    }, [])
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -86,7 +73,7 @@ const RevSlider = () => {
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
         >
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 relative overflow-hidden min-h-[400px] rounded-2xl">
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 relative overflow-hidden min-h-[400px] rounded-2xl flex justify-between flex-col">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-bl-full"></div>
 
                 <AnimatePresence mode="wait">
@@ -102,38 +89,44 @@ const RevSlider = () => {
                         <div className="flex items-center mb-6">
                             <div className="relative">
                                 <div className="w-16 h-16 rounded-2xl overflow-hidden">
-                                    <Image
-                                        width={100}
-                                        height={100}
-                                        src={currentTestimonial.image}
-                                        alt={currentTestimonial.name}
-                                        className="w-full h-full object-cover"
-                                    />
+                                    {
+                                        currentTestimonial?.image ? <Image
+                                            width={500}
+                                            height={500}
+                                            src={currentTestimonial.image}
+                                            alt={currentTestimonial.name}
+                                            className={`w-full h-full object-cover`}
+                                        /> : <div className="w-full h-full flex justify-center items-center" style={{
+                                            backgroundColor: currentTestimonial?.color
+                                        }}>
+                                            <p className="text-xl font-semibold mix-blend-difference">{currentTestimonial?.name?.charAt(0).toUpperCase()}</p>
+                                        </div>
+                                    }
                                 </div>
                                 <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full p-2">
                                     <LuQuote className="w-4 h-4 text-white" />
                                 </div>
                             </div>
                             <div className="ml-4">
-                                <h4 className="text-white text-lg">{currentTestimonial.name}</h4>
-                                <p className="text-gray-400 text-sm">{currentTestimonial.position}</p>
-                                <p className="text-blue-400 text-sm">{currentTestimonial.company}</p>
+                                <h4 className="text-white text-lg">{currentTestimonial?.name}</h4>
+                                <p className="text-gray-400 text-sm">{currentTestimonial?.position}</p>
+                                <p className="text-blue-400 text-sm">{currentTestimonial?.company}</p>
                             </div>
                         </div>
 
                         {/* Rating Stars */}
                         <div className="flex items-center mb-6">
-                            {[...Array(currentTestimonial.rating)].map((_, i) => (
+                            {[...Array(currentTestimonial?.rating)].map((_, i) => (
                                 <LuStar key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                             ))}
                             <span className="ml-3 text-gray-400 text-sm">
-                                {currentTestimonial.projectType}
+                                {currentTestimonial?.projectType}
                             </span>
                         </div>
 
                         {/* Testimonial Quote */}
                         <blockquote className="text-lg text-gray-300 leading-relaxed italic mb-6">
-                            "{currentTestimonial.quote}"
+                            "{currentTestimonial?.quote}"
                         </blockquote>
                     </motion.div>
                 </AnimatePresence>
@@ -141,11 +134,11 @@ const RevSlider = () => {
                 {/* Navigation Controls */}
                 <div className="flex items-center justify-between mt-8">
                     <div className="flex gap-2">
-                        {clientTestimonials.map((_, index) => (
+                        {clientTestimonials?.map((_, index) => (
                             <button
                                 key={index}
                                 onClick={() => goToTestimonial(index)}
-                                className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
+                                className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
                                     ? 'bg-blue-500 w-8'
                                     : 'bg-white/20 hover:bg-white/40'
                                     }`}

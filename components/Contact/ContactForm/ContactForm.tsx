@@ -2,7 +2,8 @@
 import axios from "axios";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { FaEnvelope, FaLinkedinIn, FaPhone } from "react-icons/fa6";
 import { LuBrain, LuSend, LuSparkles, LuZap } from "react-icons/lu";
 import { SiFiverr } from "react-icons/si";
@@ -60,8 +61,41 @@ const ContactForm = () => {
         fetchInformation();
     }, []);
 
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+
+        const form = e.target as HTMLFormElement;
+        const name = `${form.fName.value} ${form.lName.value}`;
+        const subject = form.subject.value;
+        const email = form.email.value;
+        const message = form.message.value;
+
+        const sendMessage = { name, subject, email, message };
+
+        try {
+            await toast.promise(
+                axios.post("/api/email", sendMessage, {
+                    headers: { "Content-Type": "application/json" },
+                }),
+                {
+                    loading: "Sending message...",
+                    success: "✅ Message sent successfully!",
+                    error: "❌ Failed to send message. Try again later.",
+                }
+            );
+            form.reset();
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
-        <div className="py-24 relative overflow-hidden">
+        <div className="py-24 relative">
             <div className="absolute inset-0 -z-10">
                 <motion.div
                     className="absolute top-20 right-10 w-96 h-96 bg-gradient-to-br from-blue-500/10 to-cyan-600/10 rounded-full blur-3xl"
@@ -70,7 +104,7 @@ const ContactForm = () => {
                         rotate: [0, 180, 360],
                     }}
                     transition={{
-                        duration: 25,
+                        duration: 0.25,
                         repeat: Infinity,
                         ease: "linear"
                     }}
@@ -82,19 +116,19 @@ const ContactForm = () => {
                         opacity: [0.3, 0.7, 0.3],
                     }}
                     transition={{
-                        duration: 20,
+                        duration: 0.3,
                         repeat: Infinity,
                         ease: "easeInOut"
                     }}
                 />
             </div>
 
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto px-4 lg:px-6">
                 <motion.div
                     className="text-center mb-20"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 0.2 }}
                     viewport={{ once: true }}
                 >
                     <div
@@ -112,12 +146,12 @@ const ContactForm = () => {
                     </p>
                 </motion.div>
 
-                <div className="grid lg:grid-cols-2 gap-16">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
                     {/* Enhanced Contact Form */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 0.4 }}
                         viewport={{ once: true }}
                     >
                         <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 relative overflow-hidden rounded-2xl">
@@ -133,7 +167,7 @@ const ContactForm = () => {
                                 </p>
                             </div>
 
-                            <form className="space-y-6">
+                            <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <motion.div
                                         whileHover={{ scale: 1.02 }}
@@ -141,6 +175,7 @@ const ContactForm = () => {
                                     >
                                         <label className="block text-sm text-gray-300 mb-2">First Name</label>
                                         <input
+                                            name="fName"
                                             placeholder="John"
                                             className="backdrop-blur-sm border-white/20 focus:border-cyan-500 transition-all duration-300 text-white placeholder:text-gray-500 w-full border-input flex h-12 min-w-0 rounded-md border px-3 py-1 text-base bg-[#2F3643] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-[#ffffff2a] focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
                                         />
@@ -151,6 +186,7 @@ const ContactForm = () => {
                                     >
                                         <label className="block text-sm text-gray-300 mb-2">Last Name</label>
                                         <input
+                                            name="lName"
                                             placeholder="Doe"
                                             className="backdrop-blur-sm border-white/20 focus:border-cyan-500 transition-all duration-300 text-white placeholder:text-gray-500 w-full border-input flex h-12 min-w-0 rounded-md border px-3 py-1 text-base bg-[#2F3643] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-[#ffffff2a] focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
                                         />
@@ -163,6 +199,7 @@ const ContactForm = () => {
                                 >
                                     <label className="block text-sm text-gray-300 mb-2">Email Address</label>
                                     <input
+                                        name="email"
                                         type="email"
                                         placeholder="john@company.com"
                                         className="backdrop-blur-sm border-white/20 focus:border-cyan-500 transition-all duration-300 text-white placeholder:text-gray-500 w-full border-input flex h-12 min-w-0 rounded-md border px-3 py-1 text-base bg-[#2F3643] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-[#ffffff2a] focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
@@ -175,6 +212,7 @@ const ContactForm = () => {
                                 >
                                     <label className="block text-sm text-gray-300 mb-2">Subject</label>
                                     <input
+                                        name="subject"
                                         type="text"
                                         placeholder="Topic of Discussion"
                                         className="backdrop-blur-sm border-white/20 focus:border-cyan-500 transition-all duration-300 text-white placeholder:text-gray-500 w-full border-input flex h-12 min-w-0 rounded-md border px-3 py-1 text-base bg-[#2F3643] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-[#ffffff2a] focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
@@ -187,6 +225,7 @@ const ContactForm = () => {
                                 >
                                     <label className="block text-sm text-gray-300 mb-2">Message</label>
                                     <textarea
+                                        name="message"
                                         placeholder="Describe your AI project vision, specific requirements, and how you envision AI enhancing your solution..."
                                         rows={4}
                                         className="backdrop-blur-sm border-white/20 focus:border-cyan-500 transition-all duration-300 text-white placeholder:text-gray-500 w-full border-input flex h-30 min-w-0 rounded-md border px-3 py-1 text-base bg-[#2F3643] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-[#ffffff2a] focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive mb-8"
@@ -198,6 +237,7 @@ const ContactForm = () => {
                                     whileTap={{ scale: 0.95 }}
                                 >
                                     <button
+                                        disabled={loading}
                                         type="submit"
                                         className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg shadow-purple-500/25 flex justify-between px-4 py-4 rounded-2xl cursor-pointer"
                                     >
@@ -215,7 +255,7 @@ const ContactForm = () => {
                         className="space-y-8"
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
+                        transition={{ duration: 0.5, delay: 0 }}
                         viewport={{ once: true }}
                     >
                         <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-2xl">

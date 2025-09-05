@@ -3,7 +3,7 @@
 import ProjectDetails from "@/components/Projects/ProjectDetails";
 import axios from "axios";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface Project {
     _id: string;
@@ -27,7 +27,7 @@ const ProjectsDetails = () => {
     const [loading, setLoading] = useState(false);
     const [project, setProject] = useState<Project>({} as Project);
 
-    const fetchProject = async () => {
+    const fetchProject = useCallback(async () => {
         setLoading(true);
         try {
             const res = await axios.get(`/api/projects/${id}`);
@@ -41,7 +41,7 @@ const ProjectsDetails = () => {
         } finally {
             setLoading(false);
         }
-    }
+    }, [id]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -49,6 +49,7 @@ const ProjectsDetails = () => {
             fetchProject();
         }
     }, [id, fetchProject]);
+
 
     useEffect(() => {
         if (project) {

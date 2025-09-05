@@ -11,5 +11,6 @@ export async function getCollections() {
         projects: db.collection("projects"),
         skills: db.collection("skills"),
         experience: db.collection("experience"),
+        reviews: db.collection("reviews"),
     };
 }

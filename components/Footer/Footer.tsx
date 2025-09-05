@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa6";
-import { LuBrain, LuFacebook, LuGithub, LuLinkedin, LuMail, LuZap } from "react-icons/lu";
+import { LuBrain, LuFacebook, LuGithub, LuLinkedin, LuMail, LuSparkles, LuZap } from "react-icons/lu";
 
 interface Information {
     email: string;
@@ -185,9 +185,6 @@ const Footer = () => {
                     >
                         <h4 className="text-white mb-6 flex items-center gap-2">
                             Our Services <LuBrain className="w-4 h-4 mr-2 text-purple-400" />
-                            {/* {title === "Technologies" && <LuZap className="w-4 h-4 mr-2 text-cyan-400" />}
-                            {title === "Resources" && <LuSparkles className="w-4 h-4 mr-2 text-yellow-400" />}
-                            {title} */}
                         </h4>
                         <ul className="space-y-3">
                             {footerItems?.services?.map((item:any, index:number) => (
@@ -217,8 +214,6 @@ const Footer = () => {
                     >
                         <h4 className="text-white mb-6 flex items-center gap-2">
                             Technologies <LuZap className="w-4 h-4 mr-2 text-cyan-400" />
-                            {/* {title === "Resources" && <LuSparkles className="w-4 h-4 mr-2 text-yellow-400" />}
-                            {title} */}
                         </h4>
                         <ul className="space-y-3">
                             {footerItems?.technologies
@@ -240,6 +235,45 @@ const Footer = () => {
                                         </p>
                                     </motion.li>
                                 ))}
+                        </ul>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0 * 0.2 }}
+                        viewport={{ once: true }}
+                    >
+                        <h4 className="text-white mb-6 flex items-center gap-2">
+                            Resources <LuSparkles className="w-4 h-4 mr-2 text-amber-400" />
+                        </h4>
+                        <ul className="space-y-3">
+                            <motion.li
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0 * 0.1 }}
+                                viewport={{ once: true }}
+                            >
+                                <Link
+                                    href={`/contact`}
+                                    className="text-gray-400 hover:text-white transition-all duration-300 text-sm hover:translate-x-1 inline-block hover:bg-white/5 px-2 py-1 rounded-lg"
+                                >
+                                    Contact Me
+                                </Link>
+                            </motion.li>
+                            <motion.li
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0 * 0.1 }}
+                                viewport={{ once: true }}
+                            >
+                                <Link
+                                    href={`/about`}
+                                    className="text-gray-400 hover:text-white transition-all duration-300 text-sm hover:translate-x-1 inline-block hover:bg-white/5 px-2 py-1 rounded-lg"
+                                >
+                                    About Me
+                                </Link>
+                            </motion.li>
                         </ul>
                     </motion.div>
                 </div>
