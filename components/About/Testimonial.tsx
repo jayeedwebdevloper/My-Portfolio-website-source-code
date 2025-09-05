@@ -26,7 +26,7 @@ const Testimonial = () => {
                 </p>
             </motion.div>
 
-            <div className="grid lg:grid-cols-2 gap-16 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
                 {/* Testimonial Slider Side */}
                 <RevSlider />
 

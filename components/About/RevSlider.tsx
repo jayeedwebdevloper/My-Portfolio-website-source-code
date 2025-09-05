@@ -73,7 +73,7 @@ const RevSlider = () => {
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
         >
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 relative overflow-hidden min-h-[400px] rounded-2xl flex justify-between flex-col">
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 relative overflow-hidden min-h-[400px] rounded-2xl flex justify-between flex-col w-full">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-bl-full"></div>
 
                 <AnimatePresence mode="wait">

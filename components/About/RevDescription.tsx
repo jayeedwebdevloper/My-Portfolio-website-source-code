@@ -12,7 +12,7 @@ const RevDescription = () => {
         >
             <h3 className="text-3xl text-white mb-8">Building Lasting Relationships</h3>
 
-            <div className="space-y-6">
+            <div className="space-y-6 w-full">
                 <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 hover:bg-white/10 transition-all duration-300 rounded-2xl">
                     <div className="flex items-start space-x-4">
                         <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl p-3 flex-shrink-0">
