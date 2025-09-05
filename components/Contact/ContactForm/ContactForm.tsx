@@ -350,7 +350,7 @@ const ContactForm = () => {
                         <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-2xl">
                             <h3 className="text-xl text-white mb-6 flex items-center">
                                 <LuZap className="w-5 h-5 mr-2 text-yellow-400" />
-                                Why Choose Our AI Services?
+                                Why Choose Our Services?
                             </h3>
                             <div className="space-y-4">
                                 {aiFeatures.map((feature, index) => (
