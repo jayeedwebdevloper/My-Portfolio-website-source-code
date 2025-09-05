@@ -318,7 +318,7 @@ const ServiceDetailsComponent = () => {
                                             whileHover={{ scale: 1.05 }}
                                         >
                                             <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 text-center hover:bg-white/10 transition-all duration-300 rounded-2xl">
-                                                <div className={`w-12 h-12 rounded-xl mx-auto mb-3`} style={{
+                                                <div className={`w-12 h-12 rounded-xl mx-auto mb-3 flex justify-center items-center`} style={{
                                                     background: `linear-gradient(to bottom right, ${color1}, ${color2})`,
                                                 }}>
                                                     <Image className="rounded-xl px-1 py-1" width={200} height={200} src={img} alt={tech} />
