@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa6";
 import { MdLightbulbOutline, MdOutlineCode } from "react-icons/md";
 
@@ -89,13 +90,13 @@ const Left = ({ stats }: leftProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
             >
-                <button
+                <Link href="/contact"
                     className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg shadow-purple-500/25 backdrop-blur-xl group flex gap-4 items-center justify-center px-4 py-3 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 cursor-pointer"
                 >
                     <MdOutlineCode className="w-5 h-5 mr-2" />
                     Discuss Your Project
                     <FaArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </Link>
             </motion.div>
         </motion.div>
     );

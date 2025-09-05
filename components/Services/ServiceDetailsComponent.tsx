@@ -189,10 +189,10 @@ const ServiceDetailsComponent = () => {
                                     </div>
 
                                     <div className="flex gap-4">
-                                        <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 flex justify-center items-center px-3 py-1 rounded-xl cursor-pointer">
+                                        <Link href="/contact" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 flex justify-center items-center px-3 py-1 rounded-xl cursor-pointer">
                                             <LuMessageCircle className="w-4 h-4 mr-2" />
                                             Get Quote
-                                        </button>
+                                        </Link>
                                     </div>
                                 </div>
 
@@ -391,10 +391,10 @@ const ServiceDetailsComponent = () => {
                                     Contact us today for a free consultation.
                                 </p>
                                 <div className="flex justify-center gap-4">
-                                    <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-3 py-2 rounded-xl flex justify-center items-center cursor-pointer">
+                                    <Link href="/contact" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-3 py-2 rounded-xl flex justify-center items-center cursor-pointer">
                                         <LuMessageCircle className="w-4 h-4 mr-2" />
                                         Start Your Project
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </motion.div>
