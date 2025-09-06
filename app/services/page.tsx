@@ -19,8 +19,18 @@ interface ExperienceState {
     countries: number;
 }
 
+interface Service {
+    _id: string;
+    title: string;
+    description: string;
+    features: string[];
+    gallery: string[];
+    icon: string;
+    technology: string[];
+}
+
 const Services = () => {
-    const [services, setServices] = useState<any[]>([]);
+    const [services, setServices] = useState<Service[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>();
 
@@ -105,13 +115,6 @@ const Services = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-            <div className="fixed inset-0 -z-50">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.15)_0%,transparent_50%)]"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(147,51,234,0.15)_0%,transparent_50%)]"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_60%,rgba(6,182,212,0.1)_0%,transparent_50%)]"></div>
-                <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]"></div>
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-slate-900/90"></div>
-            </div>
 
             <div className="relative z-10">
                 <section className="pt-32 pb-20">
@@ -123,7 +126,7 @@ const Services = () => {
                             className="text-center mb-16"
                         >
                             <div
-                                className="bg-white/5 backdrop-blur-xl border border-white/20 mb-6 px-6 py-3 w-fit mx-auto flex justify-center items-center rounded-2xl"
+                                className="bg-white/5 backdrop-blur-lg border border-white/20 mb-6 px-6 py-3 w-fit mx-auto flex justify-center items-center rounded-2xl"
                             >
                                 <LuBriefcase className="w-5 h-5 mr-2 text-blue-400" />
                                 <p>Our Services</p>
@@ -151,12 +154,12 @@ const Services = () => {
                                         whileHover={{ y: -10 }}
                                         className="group"
                                     >
-                                        <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 h-full hover:bg-white/10 transition-all duration-500 relative overflow-hidden rounded-2xl">
+                                        <div className="bg-white/5 backdrop-blur-lg border border-white/10 p-8 h-full hover:bg-white/10 transition-all duration-500 relative overflow-hidden rounded-2xl">
                                             {/* Background Gradient */}
-                                            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
 
                                             {/* Floating Elements */}
-                                            <div className="absolute top-4 right-4 w-12 h-12 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                            <div className="absolute top-4 right-4 w-12 h-12 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
 
                                             <div className="relative z-10">
                                                 {/* Service Icon */}
@@ -180,7 +183,7 @@ const Services = () => {
                                                 <div className="mb-6">
                                                     <h4 className="text-white mb-3">Key Features:</h4>
                                                     <div className="space-y-2">
-                                                        {service?.features?.slice(0, 3).map((feature:string, featureIndex:number) => (
+                                                        {service?.features?.slice(0, 3).map((feature, featureIndex) => (
                                                             <div key={featureIndex} className="flex items-center gap-2">
                                                                 <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
                                                                 <span className="text-gray-300 text-sm">{feature}</span>
@@ -192,7 +195,7 @@ const Services = () => {
                                                 {/* Technologies */}
                                                 <div className="mb-8">
                                                     <div className="flex flex-wrap gap-2">
-                                                        {service?.technology?.map((tech:string, techIndex:number) => (
+                                                        {service?.technology?.map((tech, techIndex) => (
                                                             <p
                                                                 key={techIndex}
                                                                 className="border-blue-500/30 text-blue-400 bg-blue-500/10 rounded-2xl px-3 text-sm py-1"

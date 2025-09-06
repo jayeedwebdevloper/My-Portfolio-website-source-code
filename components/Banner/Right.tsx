@@ -42,7 +42,7 @@ const Right = ({ technologies }: RightProps) => {
                 {/* Creative PNG-style design instead of boxed photo */}
                 < div className="relative h-96 flex items-center justify-center" >
                     {/* Floating geometric shapes background */}
-                    < div className="absolute inset-0" >
+                    < div className="absolute inset-0 opacity-70" >
                         <motion.div
                             className="absolute top-8 left-8 w-20 h-20 bg-gradient-to-br from-blue-500/30 to-cyan-500/30 rounded-2xl backdrop-blur-sm border border-blue-400/30"
                             animate={{
@@ -94,7 +94,7 @@ const Right = ({ technologies }: RightProps) => {
                     </div >
 
                     {/* Central developer silhouette with modern design */}
-                    < div className="relative z-10 w-64 h-80 bg-gradient-to-br from-white/10 via-blue-500/20 to-purple-600/20 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl shadow-purple-500/20" >
+                    < div className="relative z-10 w-64 h-80 bg-gradient-to-br from-white/10 via-blue-500/20 to-purple-600/20 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden shadow-2xl shadow-purple-500/20" >
                         {/* Glowing effect */}
                         < div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-600/10 to-cyan-500/10" ></div >
 
@@ -185,7 +185,7 @@ const Right = ({ technologies }: RightProps) => {
 
             {/* Technology Stack */}
             <motion.div
-                className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6"
+                className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.7 }}
@@ -207,7 +207,7 @@ const Right = ({ technologies }: RightProps) => {
                             return (
                                 <motion.div
                                     key={tech.title}
-                                    layout // enables smooth reordering
+                                    layout
                                     className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-all duration-300"
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -222,7 +222,7 @@ const Right = ({ technologies }: RightProps) => {
                                             }}
                                             className="w-10 h-10 rounded-lg flex items-center justify-center text-white text-sm flex-shrink-0 p-1"
                                         >
-                                            <Image src={tech.icon} width={200} height={200} alt={tech.title} />
+                                            <Image loading="lazy" src={tech.icon} width={200} height={200} alt={tech.title} />
                                         </div>
                                         <div className="min-w-0">
                                             <div className="text-white text-sm">{tech.title}</div>

@@ -20,8 +20,8 @@ const Expertise = ({ expertise, loading }: Props) => {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
         >
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 relative overflow-hidden rounded-2xl mt-12">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-purple-500/20 to-transparent rounded-bl-full"></div>
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 p-8 relative overflow-hidden rounded-2xl mt-12">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-purple-500/20 to-transparent rounded-bl-full opacity-60"></div>
                 <h3 className="text-2xl text-white mb-8 flex items-center">
                     <LuZap className="w-6 h-6 mr-3 text-yellow-400" />
                     Our Technical Expertise

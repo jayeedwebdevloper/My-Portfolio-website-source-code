@@ -52,11 +52,9 @@ const AboutPage = () => {
 
     if (loading) {
         return (
-            <div className="dark min-h-screen bg-transparent flex items-center justify-center">
-                <div className="flex items-center space-x-4">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gradient-to-r from-blue-400 to-purple-500"></div>
-                    <span className="text-lg text-gray-200">Loading...</span>
-                </div>
+            <div className="min-h-screen bg-transparent flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gradient-to-r from-blue-400 to-purple-500"></div>
+                <span className="text-lg text-gray-200">Loading...</span>
             </div>
         );
     }
@@ -68,11 +66,11 @@ const AboutPage = () => {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
                     className="order-2 lg:order-1"
                 >
-                    <div className="bg-white/5 backdrop-blur-xl border border-white/20 p-6 relative overflow-hidden group rounded-2xl">
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div className="bg-white/5 backdrop-blur-lg border border-white/20 p-6 relative overflow-hidden group rounded-2xl">
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-70 transition-opacity duration-700"></div>
                         <div className="relative">
                             <motion.div
                                 whileHover={{ scale: 1.01 }}
@@ -80,8 +78,8 @@ const AboutPage = () => {
                                 className="relative aspect-[4/5] rounded-2xl overflow-hidden"
                             >
                                 <Image
-                                    width={1000}
-                                    height={1000}
+                                    width={800}
+                                    height={800}
                                     src="/images/jayeed.webp"
                                     alt="jayeed, web developer, mobile developer, android, ios, react native, next js, react js"
                                     className="w-full h-full object-cover"

@@ -87,9 +87,9 @@ const Footer = () => {
     return (
         <footer className="relative border-t border-white/10 bg-black/20 backdrop-blur-xl overflow-hidden">
             {/* Enhanced Background Elements */}
-            <div className="absolute inset-0 -z-10">
+            <div className="absolute inset-0 -z-10 opacity-20">
                 <motion.div
-                    className="absolute top-0 left-20 w-80 h-80 bg-gradient-to-br from-blue-500/5 to-purple-600/5 rounded-full blur-3xl"
+                    className="absolute top-0 left-20 w-80 h-80 bg-gradient-to-br from-blue-500/5 to-purple-600/5 rounded-full blur-md"
                     animate={{
                         scale: [1, 1.2, 1],
                         rotate: [0, 180, 360],
@@ -101,7 +101,7 @@ const Footer = () => {
                     }}
                 />
                 <motion.div
-                    className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-cyan-500/5 to-pink-600/5 rounded-full blur-3xl"
+                    className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-cyan-500/5 to-pink-600/5 rounded-full blur-md"
                     animate={{
                         scale: [1.2, 1, 1.2],
                         opacity: [0.3, 0.6, 0.3],

@@ -36,9 +36,9 @@ const Left = ({ stats }: leftProps) => {
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.2 }}
             >
-                <h1 className="text-5xl lg:text-7xl mb-6 leading-tight">
+                <h1 className="text-4xl lg:text-6xl mb-6 leading-tight">
                     <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
                         Code The
                     </span>
@@ -50,15 +50,12 @@ const Left = ({ stats }: leftProps) => {
             </motion.div>
 
             {/* Subtitle */}
-            <motion.p
-                className="text-xl lg:text-2xl text-gray-300 leading-relaxed max-w-2xl"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+            <p
+                className="text-xl lg:text-2xl text-gray-300 leading-normal"
             >
                 Transform your vision into reality with cutting-edge technologies,
                 AI integration, and expert development that pushes boundaries.
-            </motion.p>
+            </p>
 
             {/* Stats */}
             <motion.div
@@ -78,8 +75,8 @@ const Left = ({ stats }: leftProps) => {
                         transition={{ type: "spring", stiffness: 300 }}
                     >
                         <stat.icon className="w-6 h-6 mx-auto mb-2 text-blue-400" />
-                        <div className="text-xl text-white mb-1">{stat.value}</div>
-                        <div className="text-xs text-gray-400">{stat.label}</div>
+                        <p className="text-xl text-white mb-1">{stat.value}</p>
+                        <p className="text-xs text-gray-400">{stat.label}</p>
                     </motion.div>
                 ))}
             </motion.div>

@@ -101,28 +101,26 @@ const ContactForm = () => {
 
     return (
         <div className="py-24 relative">
-            <div className="absolute inset-0 -z-10">
+            <div className="absolute inset-0 -z-10 opacity-20">
                 <motion.div
-                    className="absolute top-20 right-10 w-96 h-96 bg-gradient-to-br from-blue-500/10 to-cyan-600/10 rounded-full blur-3xl"
+                    className="absolute top-20 right-10 w-96 h-96 bg-gradient-to-br from-blue-500/10 to-cyan-600/10 rounded-full blur-md"
                     animate={{
                         scale: [1, 1.3, 1],
                         rotate: [0, 180, 360],
                     }}
                     transition={{
                         duration: 0.25,
-                        repeat: Infinity,
                         ease: "linear"
                     }}
                 />
                 <motion.div
-                    className="absolute bottom-20 left-0 w-80 h-80 bg-gradient-to-br from-purple-500/10 to-pink-600/10 rounded-full blur-3xl"
+                    className="absolute bottom-20 left-0 w-80 h-80 bg-gradient-to-br from-purple-500/10 to-pink-600/10 rounded-full blur-md"
                     animate={{
                         scale: [1.2, 1, 1.2],
                         opacity: [0.3, 0.7, 0.3],
                     }}
                     transition={{
                         duration: 0.3,
-                        repeat: Infinity,
                         ease: "easeInOut"
                     }}
                 />
@@ -160,7 +158,7 @@ const ContactForm = () => {
                         viewport={{ once: true }}
                     >
                         <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 relative overflow-hidden rounded-2xl">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-purple-500/20 to-transparent rounded-bl-full"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-purple-500/20 to-transparent rounded-bl-full opacity-60"></div>
 
                             <div className="mb-8">
                                 <h3 className="text-3xl text-white mb-3 flex items-center">

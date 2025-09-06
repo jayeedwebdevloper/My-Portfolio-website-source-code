@@ -9,8 +9,18 @@ import parse from 'html-react-parser';
 import Link from "next/link";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
+interface Service {
+    _id: string;
+    title: string;
+    description: string;
+    features: string[];
+    gallery: string[];
+    icon: string;
+    technology: string[];
+}
+
 const ShortServices = () => {
-    const [services, setServices] = useState<any[]>([]);
+    const [services, setServices] = useState<Service[]>([]);
     const [loading, setLoading] = useState(false);
     const [loadingMain, setLoadingMain] = useState(true);
 
@@ -66,14 +76,14 @@ const ShortServices = () => {
                                 whileHover={{ y: -10 }}
                                 transition={{ type: "spring", stiffness: 300 }}
                             >
-                                <div className="bg-white/5 backdrop-blur-2xl border border-white/20 p-8 hover:bg-white/8 transition-all duration-500 group relative overflow-hidden h-full rounded-3xl shadow-2xl shadow-black/20">
+                                <div className="bg-white/5 backdrop-blur-md border border-white/20 p-8 hover:bg-white/8 transition-all duration-500 group relative overflow-hidden h-full rounded-3xl shadow-2xl shadow-black/20">
                                     {/* Subtle gradient overlay on hover - much more subtle */}
                                     <div className={`absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-600/10 opacity-0 group-hover:opacity-3 transition-opacity duration-500 rounded-3xl`}></div>
 
                                     {/* Subtle animated border - reduced opacity */}
                                     <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-50 transition-opacity duration-500">
                                         <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/10 to-purple-600/10 p-px opacity-20`}>
-                                            <div className="w-full h-full bg-slate-900/80 rounded-3xl backdrop-blur-2xl"></div>
+                                            <div className="w-full h-full bg-slate-900/80 rounded-3xl backdrop-blur-md"></div>
                                         </div>
                                     </div>
 
@@ -90,7 +100,7 @@ const ShortServices = () => {
                                         )}
                                         <Image width={200} height={200} className={`w-full ${loadingMain ? "opacity-0" : "opacity-100"
                                             }`} onLoadingComplete={() => setLoadingMain(false)} src={service.icon} alt={service.title} />
-                                        <div className="absolute inset-0 bg-white/10 rounded-3xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                        <div className="absolute inset-0 bg-white/10 rounded-3xl blur-sm opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
                                     </motion.div>
 
                                     <h3 className="text-2xl text-white mb-4 relative z-10 group-hover:text-gray-100 transition-all duration-300">
@@ -98,14 +108,14 @@ const ShortServices = () => {
                                     </h3>
 
                                     <div className="text-gray-400 group-hover:text-gray-300 mb-6 leading-relaxed relative z-10 transition-colors duration-300 line-clamp-3">
-                                        {parse(service.description || '')}
+                                        {parse(service.description)}
                                     </div>
 
                                     {/* Features */}
                                     <div className="mb-6 relative z-10">
                                         <h4 className="text-sm text-gray-500 group-hover:text-gray-400 mb-3 uppercase tracking-wider transition-colors duration-300">Key Features</h4>
                                         <div className="space-y-2">
-                                            {service?.features?.map((feature: string, featureIndex: number) => (
+                                            {service?.features?.map((feature, featureIndex) => (
                                                 <motion.div
                                                     key={featureIndex}
                                                     className="flex items-center space-x-2"
@@ -123,7 +133,7 @@ const ShortServices = () => {
 
                                     {/* Technologies */}
                                     <div className="flex flex-wrap gap-2 mb-6 relative z-10">
-                                        {service?.technology?.map((tech: string, techIndex: number) => (
+                                        {service?.technology?.map((tech, techIndex) => (
                                             <motion.div
                                                 key={tech}
                                                 initial={{ opacity: 0, scale: 0.8 }}
@@ -161,7 +171,7 @@ const ShortServices = () => {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 viewport={{ once: true }}
             >
-                <div className="bg-gradient-to-br from-blue-500/10 via-purple-600/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 p-12 max-w-4xl mx-auto relative overflow-hidden rounded-3xl mt-16">
+                <div className="bg-gradient-to-br from-blue-500/10 via-purple-600/10 to-cyan-500/10 backdrop-blur-lg border border-white/20 p-12 max-w-4xl mx-auto relative overflow-hidden rounded-3xl mt-16">
                     <motion.div
                         initial={{ scale: 0.9 }}
                         whileInView={{ scale: 1 }}

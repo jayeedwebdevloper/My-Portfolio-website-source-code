@@ -25,7 +25,7 @@ const ShowAble = ({ stats }: Props) => {
                         whileHover={{ scale: 1.05, y: -5 }}
                         transition={{ type: "spring", stiffness: 300 }}
                     >
-                        <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 text-center hover:bg-white/10 transition-all duration-300 relative overflow-hidden group rounded-2xl">
+                        <div className="bg-white/5 backdrop-blur-lg border border-white/10 p-6 text-center hover:bg-white/10 transition-all duration-300 relative overflow-hidden group rounded-2xl">
                             <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
                             <div className={`w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br ${stat.color} p-3`}>
                                 <stat.icon className="w-6 h-6 text-white" />

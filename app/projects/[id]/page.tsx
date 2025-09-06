@@ -64,7 +64,7 @@ const ProjectsDetails = () => {
                     <div className="h-full w-full flex items-center justify-center">
                         <div className="flex items-center space-x-4">
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gradient-to-r from-blue-400 to-purple-500"></div>
-                            <span className="text-lg text-gray-200">Loading services...</span>
+                            <span className="text-lg text-gray-200">Loading Project...</span>
                         </div>
                     </div>
                     :

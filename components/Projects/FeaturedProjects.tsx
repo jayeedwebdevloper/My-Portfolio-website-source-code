@@ -90,14 +90,14 @@ const FeaturedProjects = () => {
                             whileHover={{ y: -10 }}
                             transition={{ type: "spring", stiffness: 300 }}
                         >
-                            <div className="bg-white/5 backdrop-blur-2xl border border-white/20 overflow-hidden hover:bg-white/8 transition-all duration-500 group h-full rounded-3xl shadow-2xl shadow-black/20">
+                            <div className="bg-white/5 backdrop-blur-md border border-white/20 overflow-hidden hover:bg-white/8 transition-all duration-500 group h-full rounded-3xl shadow-2xl shadow-black/20">
                                 <div className="relative overflow-hidden">
                                     <Image
                                         width={1000}
                                         height={600}
                                         src={project.gallery[0]}
                                         alt={project.title}
-                                        className={`w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-700 ${project.covered ? 'blur-2xl' : 'blur-none'}`}
+                                        className={`w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-700 ${project.covered ? 'blur-lg' : 'blur-none'}`}
                                     />
 
                                     {project.covered && (

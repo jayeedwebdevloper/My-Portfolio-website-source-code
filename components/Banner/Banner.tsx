@@ -66,9 +66,9 @@ const Banner = () => {
     }, [])
     return (
         <div className='flex items-center justify-center relative overflow-hidden pt-20'>
-            <div className="absolute inset-0 -z-10">
+            <div className="absolute inset-0 -z-10 opacity-20">
                 <motion.div
-                    className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full blur-3xl"
+                    className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full blur-md"
                     animate={{
                         scale: [1, 1.2, 1],
                         rotate: [0, 180, 360],
@@ -80,7 +80,7 @@ const Banner = () => {
                     }}
                 />
                 <motion.div
-                    className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-br from-cyan-500/20 to-pink-600/20 rounded-full blur-3xl"
+                    className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-br from-cyan-500/20 to-pink-600/20 rounded-full blur-md"
                     animate={{
                         scale: [1.2, 1, 1.2],
                         rotate: [360, 180, 0],
@@ -92,7 +92,7 @@ const Banner = () => {
                     }}
                 />
                 <motion.div
-                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-purple-500/10 to-blue-600/10 rounded-full blur-3xl"
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-purple-500/10 to-blue-600/10 rounded-full blur-md"
                     animate={{
                         scale: [1, 1.3, 1],
                         opacity: [0.3, 0.7, 0.3],

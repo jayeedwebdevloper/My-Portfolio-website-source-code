@@ -21,7 +21,7 @@ const Features = ({ features }: Props) => {
                 {features.map((feature, index) => (
                     <motion.div
                         key={index}
-                        className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300"
+                        className="group bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.2, duration: 0.6 }}

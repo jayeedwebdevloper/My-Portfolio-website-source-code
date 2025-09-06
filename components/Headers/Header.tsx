@@ -39,7 +39,7 @@ const Header = () => {
         <motion.header
             className={
                 `fixed top-0 left-0 right-0 z-[200] transition-all duration-500 ${scrolled
-                    ? 'backdrop-blur-2xl bg-black/30 border-b border-white/20 shadow-2xl shadow-purple-500/10'
+                    ? 'backdrop-blur-md bg-black/30 border-b border-white/20 shadow-2xl shadow-purple-500/10'
                     : 'backdrop-blur-xl bg-black/20 border-b border-white/10'
                 }`
             }

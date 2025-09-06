@@ -106,9 +106,9 @@ const HomeAbout = () => {
 
     return (
         <div className="py-24 relative overflow-hidden">
-            <div className="absolute inset-0 -z-10">
+            <div className="absolute inset-0 -z-10 opacity-20">
                 <motion.div
-                    className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 rounded-full blur-3xl"
+                    className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 rounded-full blur-md"
                     animate={{
                         scale: [1, 1.3, 1],
                         rotate: [0, 180, 360],
@@ -120,7 +120,7 @@ const HomeAbout = () => {
                     }}
                 />
                 <motion.div
-                    className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-purple-500/10 to-pink-600/10 rounded-full blur-3xl"
+                    className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-purple-500/10 to-pink-600/10 rounded-full blur-md"
                     animate={{
                         scale: [1.2, 1, 1.2],
                         opacity: [0.3, 0.6, 0.3],
@@ -142,7 +142,7 @@ const HomeAbout = () => {
                     viewport={{ once: true }}
                 >
                     <div
-                        className="bg-white/5 backdrop-blur-xl border border-white/20 mb-6 px-6 py-2 flex items-center justify-center rounded-full text-sm text-white w-[290px] mx-auto"
+                        className="bg-white/5 backdrop-blur-lg border border-white/20 mb-6 px-6 py-2 flex items-center justify-center rounded-full text-sm text-white w-[290px] mx-auto"
                     >
                         <LuBrain className="w-4 h-4 mr-2 text-purple-400" />
                         <p>About Our Full Stack Approach</p>

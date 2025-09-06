@@ -23,7 +23,7 @@ const MobileNav = ({isMenuOpen, setIsMenuOpen, navItems}:NavItem) => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="md:hidden overflow-hidden"
                 >
-                    <div className="mt-6 p-6 bg-white/5 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl shadow-purple-500/10">
+                    <div className="mt-6 p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-2xl shadow-purple-500/10">
                         <div className="flex flex-col space-y-3">
                             {navItems.map((item, index) => (
                                 <motion.a
