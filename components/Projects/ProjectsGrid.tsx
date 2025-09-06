@@ -43,7 +43,7 @@ const ProjectsGrid: FC<ProjectsGridProps> = ({
         <section className="pb-20">
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-                    {filteredProjects.map((project, index) => {
+                    {filteredProjects.map((project) => {
                         const IconComponent = getProjectIcon(project.category);
                         return (
                             <motion.div
